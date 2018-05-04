@@ -27,7 +27,7 @@
     </parent>
 
     <properties>
-        <main.basedir>com.zifisense.mjxgz.Application</main.basedir>
+        <main.basedir>com.zhiyi.mjxgz.Application</main.basedir>
     </properties>
 
     <dependencies>

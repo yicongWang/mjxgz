@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.OperationLogMapperExt">
-  <resultMap id="BaseResultDTOMap" type="com.zifisense.jll.dto.OperationLogDTO" extends="com.zifisense.jll.dao.OperationLogMapper.BaseResultMap">
+  <resultMap id="BaseResultDTOMap" type="com.zhiyi.mjxgz.dto.OperationLogDTO" extends="com.zhiyi.mjxgz.dao.OperationLogMapper.BaseResultMap">
 
   </resultMap>
 
   <!-- 查询集合列表-->
-  <select id="find" resultMap="BaseResultDTOMap" parameterType="com.zifisense.jll.dto.OperationLogDTO">
+  <select id="find" resultMap="BaseResultDTOMap" parameterType="com.zhiyi.mjxgz.dto.OperationLogDTO">
     SELECT
     l.id,
     l.operation_user,

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.CaptchaMapperExt">
-  <resultMap id="BaseResultDTOMap" type="com.zifisense.jll.dto.CaptchaDTO" extends="com.zifisense.jll.dao.CaptchaMapper.BaseResultMap">
+  <resultMap id="BaseResultDTOMap" type="com.zhiyi.mjxgz.dto.CaptchaDTO" extends="com.zhiyi.mjxgz.dao.CaptchaMapper.BaseResultMap">
 
   </resultMap>
 
 
   <!-- 根据条件获取已保存的验证码条数 -->
-  <select id="queryCount" resultType="int" parameterType="com.zifisense.jll.dto.CaptchaDTO">
+  <select id="queryCount" resultType="int" parameterType=" com.zhiyi.mjxgz.dto.CaptchaDTO">
     SELECT
       count(c.id)
     FROM
@@ -25,7 +25,7 @@
 
 
   <!--根据条件获取最新的验证码 -->
-  <select id="getLatestCaptcha" resultMap="BaseResultDTOMap" parameterType="com.zifisense.jll.dto.CaptchaDTO">
+  <select id="getLatestCaptcha" resultMap="BaseResultDTOMap" parameterType="com.zhiyi.mjxgz.dto.CaptchaDTO">
     SELECT
         c.id,
         c.captcha,
