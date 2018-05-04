@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zifisense</groupId>
+    <artifactId>jll</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>jll-util</module>
+        <module>jll-service</module>
+        <module>jll-dao</module>
+        <module>jll-model</module>
+        <module>jll-controller</module>
+        <module>jll-common</module>
+        <module>jll-client</module>
+    </modules>
+
+    <properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <spring-boot.version>1.3.3.RELEASE</spring-boot.version>
+        <main.basedir>com.zifisense.jll.Application</main.basedir>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+    	<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--HikariCP数据连接池-->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.4.6</version>
+        </dependency>
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.34</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <!--开发环境-->
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库设置-->
+               <!-- <datasource.url><![CDATA[jdbc:mysql://119.23.42.140:3306/jll?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password><![CDATA[kx6m45a&!qD&2CC5a#]]></datasource.password>-->
+                <datasource.url><![CDATA[jdbc:mysql://192.168.0.112:3306/smart_light?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>root_5.5</datasource.password>
+
+                <!-- redis设置-->
+                <redis.host>192.168.0.112</redis.host>
+                <redis.password></redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>5</redis.database>
+
+                <!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <rest.service.rootUrl>http://127.0.0.112:9091</rest.service.rootUrl>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <!--测试环境-->
+            <id>test</id>
+            <properties>
+                <!-- 数据库设置-->
+                <datasource.url><![CDATA[jdbc:mysql://192.168.0.112:3306/smart_light?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>root_5.5</datasource.password>
+
+                <!-- redis设置-->
+                <redis.host>192.168.0.112</redis.host>
+                <redis.password>8FWwayQMCu^Z</redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <rest.service.rootUrl>http://127.0.0.1:9091</rest.service.rootUrl>
+
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!--正式环境-->
+            <id>production</id>
+            <properties>
+                <!-- 数据库设置-->
+                <datasource.url><![CDATA[jdbc:mysql://192.168.0.112:3306/jll?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password></datasource.password>
+
+                <!-- redis设置-->
+                <redis.host>192.168.0.112</redis.host>
+                <redis.password>redisPassword</redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <rest.service.rootUrl>http://127.0.0.1:9091</rest.service.rootUrl>
+
+            </properties>
+        </profile>
+    </profiles>
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <excludeTransitive>false</excludeTransitive>
+                            <includeScope>compile</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/</directory>
+                                    <includes>
+                                        <include>config/*</include>
+                                        <include>config/*/*</include>
+                                    </includes>
+                                    <exclude>mybatis-generator</exclude>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <excludes>
+                        <exclude>config</exclude>
+                        <exclude>config/*</exclude>
+                        <exclude>config/*/*</exclude>
+                        <exclude>mybatis-generator</exclude>
+                        <exclude>mybatis-generator/*</exclude>
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <!--<addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>-->
+                            <mainClass>${main.basedir}</mainClass>
+                            <!--在外部补充配置main方法的入口-->
+                            <!--<mainClass>com.zifisense.iot.monitor.App</mainClass>-->
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>./</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+            <!-- 热部署插件 spring boot devtools plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--fork :  如果没有该项配置，devtools不会起作用，即应用不会restart -->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

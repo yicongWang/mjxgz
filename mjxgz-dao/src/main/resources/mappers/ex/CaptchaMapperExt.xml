@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.CaptchaMapperExt">
+  <resultMap id="BaseResultDTOMap" type="com.zifisense.jll.dto.CaptchaDTO" extends="com.zifisense.jll.dao.CaptchaMapper.BaseResultMap">
+
+  </resultMap>
+
+
+  <!-- 根据条件获取已保存的验证码条数 -->
+  <select id="queryCount" resultType="int" parameterType="com.zifisense.jll.dto.CaptchaDTO">
+    SELECT
+      count(c.id)
+    FROM
+        sys_captcha c
+    WHERE
+        c.mobile_phone = #{mobilePhone}
+    AND c.type = #{type}
+    AND c.is_validation = 0
+    AND DATE_FORMAT(
+        c.generate_time,
+        '%Y-%m-%d %H'
+    ) = #{dateStr}
+  </select>
+
+
+
+  <!--根据条件获取最新的验证码 -->
+  <select id="getLatestCaptcha" resultMap="BaseResultDTOMap" parameterType="com.zifisense.jll.dto.CaptchaDTO">
+    SELECT
+        c.id,
+        c.captcha,
+        c.generate_time
+    FROM
+        sys_captcha c
+    WHERE
+        c.mobile_phone = #{mobilePhone}
+    AND c.type = #{type}
+    AND c.is_validation = 0
+    ORDER BY
+        c.generate_time DESC
+    LIMIT 1
+  </select>
+
+
+</mapper>

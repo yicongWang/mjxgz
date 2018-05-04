@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.LoginLogMapperExt">
+  <resultMap id="BaseResultDTOMap" type="com.zifisense.jll.dto.LoginLogDTO" extends="com.zhiyi.mjxgz.dao.ex.LoginLogMapper.BaseResultMap">
+
+  </resultMap>
+
+  <!--查询登录日志-->
+  <select id="findDTO" resultMap="BaseResultDTOMap" parameterType="com.zifisense.jll.dto.LoginLogDTO">
+      SELECT
+      l.id,
+      l.login_user,
+      l.ip,
+      l.terminal_type,
+      l.login_time,
+      l.remark
+      FROM
+      sys_login_log l
+      <where>
+        <if test="loginUser!=null and loginUser!=''">
+          and l.login_user = #{loginUser}
+        </if>
+        <if test="terminalType!=null and terminalType!=''">
+          and l.terminal_type = #{terminalType}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+          <![CDATA[and date_format(l.login_time,'%Y-%m-%d') >= #{startTime}]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+          <![CDATA[and date_format(l.login_time,'%Y-%m-%d') <= #{endTime}]]>
+        </if>
+      </where>
+      ORDER BY
+      l.login_time DESC
+  </select>
+
+
+</mapper>

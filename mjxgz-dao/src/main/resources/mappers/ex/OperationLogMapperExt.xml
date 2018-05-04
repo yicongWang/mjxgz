@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.OperationLogMapperExt">
+  <resultMap id="BaseResultDTOMap" type="com.zifisense.jll.dto.OperationLogDTO" extends="com.zifisense.jll.dao.OperationLogMapper.BaseResultMap">
+
+  </resultMap>
+
+  <!-- 查询集合列表-->
+  <select id="find" resultMap="BaseResultDTOMap" parameterType="com.zifisense.jll.dto.OperationLogDTO">
+    SELECT
+    l.id,
+    l.operation_user,
+    l.terminal_type,
+    l.module_name,
+    l.operation_type,
+    l.operation_desc,
+    l.operation_ip,
+    l.operation_time
+    FROM
+    sys_operation_log l
+    <where>
+      <if test="operationUser!=null and operationUser!=''">
+        and l.operation_user = #{operationUser}
+      </if>
+      <if test="terminalType!=null and terminalType!=''">
+        and l.terminal_type = #{terminalType}
+      </if>
+    </where>
+    ORDER BY
+    l.operation_time DESC
+  </select>
+
+</mapper>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zhiyi</groupId>
+    <artifactId>mjxgz</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>mjxgz-util</module>
+        <module>mjxgz-service</module>
+        <module>mjxgz-dao</module>
+        <module>mjxgz-model</module>
+        <module>mjxgz-controller</module>
+        <module>mjxgz-common</module>
+        
+    </modules>
+
+    <parent>
+        <groupId>com.zifisense.iot</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.1</version>
+        <relativePath></relativePath>
+    </parent>
+
+    <properties>
+        <main.basedir>com.zifisense.mjxgz.Application</main.basedir>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.34</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <!--开发环境-->
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库设置-->
+                <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/beautful_line?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>123456</datasource.password>
+                
+				<!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+                
+                <!-- redis设置-->
+                <redis.host>193.112.203.138</redis.host>
+                <redis.password>123456</redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- 邮件-->
+                <email.host>smtp.exmail.qq.com</email.host>
+                <email.username>zeta.cms.admin@zifisense.co.uk</email.username>
+                <email.password>Z3cdc3b59012c318b</email.password>
+				
+                <!-- jpush-->
+                <jpush.appKey>da640a84e8641aba0f78d06c</jpush.appKey>
+                <jpush.masterSecret>3d193ed21073cacca3c922f8</jpush.masterSecret>
+
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <server.ssl.key-store-password>111111</server.ssl.key-store-password>
+ 				
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!--测试环境-->
+            <id>test</id>
+            <properties>
+                <!-- 数据库设置-->
+                <datasource.url><![CDATA[jdbc:mysql://192.168.0.115:3306/test_mjxgz?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>Root_5.5</datasource.password>
+
+                <!-- redis设置-->
+                <redis.host>192.168.0.12</redis.host>
+                <redis.password>redisPassword</redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+                
+				<!-- 邮件-->
+				<email.host>smtp.exmail.qq.com</email.host>
+				<email.username>zeta.cms.admin@zifisense.co.uk</email.username>
+				<email.password>Z3cdc3b59012c318b</email.password>
+				
+				<!-- mqtt-->
+				<mqtt.code>e9dbd0ab151d5957cd9869a142ba2fd1</mqtt.code>
+				<mqtt.host>tcp://192.168.0.230:1883</mqtt.host>
+				<mqtt.username>mqttuser</mqtt.username>
+				<mqtt.password>zifisense</mqtt.password>
+
+                <!-- jpush-->
+                <jpush.appKey>da640a84e8641aba0f78d06c</jpush.appKey>
+                <jpush.masterSecret>3d193ed21073cacca3c922f8</jpush.masterSecret>
+				
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <server.ssl.key-store-password>111111</server.ssl.key-store-password>
+
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <!--正式环境-->
+            <id>production</id>
+            <properties>
+                <!-- 数据库设置-->
+                <datasource.url><![CDATA[jdbc:mysql://cspamdbs.mysqldb.chinacloudapi.cn:3306/zifisense_mjxgz?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <datasource.username>cspamdbs%mjxgz</datasource.username>
+                <datasource.password>GtOokRMu$</datasource.password>
+
+                <!-- redis设置-->
+                <redis.host>127.0.0.1</redis.host>
+                <redis.password>redisPassword</redis.password>
+                <redis.port>6379</redis.port>
+                <redis.database>6</redis.database>
+
+                <!-- 日志输出设置-->
+                <logging.level>DEBUG</logging.level>
+                <logging.path>./logs/</logging.path>
+                
+				<!-- 邮件-->
+				<email.host>mail.mjxgzms.com.cn</email.host>
+				<email.username>cc.assistant@mjxgzms.com.cn</email.username>
+				<email.password>P@ssw0rd91</email.password>
+				
+				<!-- mqtt-->
+				<mqtt.code>e9dbd0ab151d5957cd9869a142ba2fd1</mqtt.code>
+				<mqtt.host>tcp://127.0.0.1:1883</mqtt.host>
+				<mqtt.username>mqttuser</mqtt.username>
+				<mqtt.password>zifisense</mqtt.password>
+
+                <!-- jpush-->
+                <jpush.appKey>a7b72714428f2eb4c24116d2</jpush.appKey>
+                <jpush.masterSecret>2e47d1deebe3cd2328b544ef</jpush.masterSecret>
+
+                <!-- web服务端口设置-->
+                <server.port>8090</server.port>
+                <server.ssl.key-store-password>mjxgz123456</server.ssl.key-store-password>
+
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.basedir}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- 热部署插件 spring boot devtools plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--fork :  如果没有该项配置，devtools不会起作用，即应用不会restart -->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+    </build>
+
+
+</project>
