@@ -52,9 +52,13 @@
             </activation>
             <properties>
                 <!-- 数据库设置-->
-                <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/beautful_line?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <!-- <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/beautful_line?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
                 <datasource.username>root</datasource.username>
-                <datasource.password>123456</datasource.password>
+                <datasource.password>123456</datasource.password> -->
+                
+                <datasource.url><![CDATA[jdbc:mysql://gz-cdb-q22iv2jo.sql.tencentcdb.com:62813/mjxgz?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>MLZX6666</datasource.password>
                 
 				<!-- 日志输出设置-->
                 <logging.level>DEBUG</logging.level>
