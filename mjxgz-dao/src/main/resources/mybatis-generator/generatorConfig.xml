@@ -95,10 +95,6 @@
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
-         <table tableName="business_category" domainObjectName="BusinessCategory" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="false" />
-            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
-        </table>
         
          <table tableName="banner" domainObjectName="Banner" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false" />
@@ -109,6 +105,12 @@
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
+        
+        <table tableName="business_coupon" domainObjectName="BusinessCoupon" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+        
        
        
         <table tableName="goods" domainObjectName="Goods" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
@@ -126,12 +128,22 @@
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
        
+          <table tableName="business_img" domainObjectName="BusinessImg" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+       
           <table tableName="region" domainObjectName="Region" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
        
           <table tableName="region_business" domainObjectName="RegionBusiness" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+       
+          <table tableName="goods_category" domainObjectName="GoodsCategory" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>

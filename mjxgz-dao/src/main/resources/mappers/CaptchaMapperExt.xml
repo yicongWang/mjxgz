@@ -7,7 +7,7 @@
 
 
   <!-- 根据条件获取已保存的验证码条数 -->
-  <select id="queryCount" resultType="int" parameterType=" com.zhiyi.mjxgz.dto.CaptchaDTO">
+  <select id="queryCount" resultType="int" parameterType="com.zhiyi.mjxgz.dto.CaptchaDTO">
     SELECT
       count(c.id)
     FROM

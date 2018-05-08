@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zhiyi.mjxgz.common.constants.InfoState;
 import com.zhiyi.mjxgz.dao.ex.BannerMapperExt;
 import com.zhiyi.mjxgz.model.Banner;
 import com.zhiyi.mjxgz.model.BannerExample;
@@ -31,6 +32,8 @@ public class BannerServiceImpl implements BannerService {
 		BannerExample example = new  BannerExample();
 		Criteria  criteria = example.createCriteria();
 		criteria.andBannerPositionEqualTo(position);
+		criteria.andStatusEqualTo(InfoState.NORMAL);
+		example.setOrderByClause(" sort asc");
 		return bannerMapperExt.selectByExample(example);
 	}
 }

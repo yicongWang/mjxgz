@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.BusinessMapperExt">
+	<select id="findBusinessInfoByBusinessId" resultType="com.zhiyi.mjxgz.vo.BusinessInfoVO" parameterType="map">
+		SELECT 
+		  b.`id` AS businessId,
+		  b.`name` AS businessName,
+		  b.`business_introduction` AS businessIntroduction,
+		  b.`business_start` AS businessStart,
+		  b.`business_end` AS businessEnd,
+		  b.`grade`,
+		  b.`welfare_content` AS welfareContent,
+		  b.`special_remind` AS specialRemind 
+		FROM
+		  `business` b 
+	     WHERE b.`status` = 1 
+		<if test="businessId != null"> 
+                   and b.`id` = #{businessId}
+        </if>
+	</select>
+</mapper>

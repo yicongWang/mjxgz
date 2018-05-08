@@ -265,52 +265,62 @@ public class LoginLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserEqualTo(Long value) {
+        public Criteria andLoginUserEqualTo(String value) {
             addCriterion("login_user =", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserNotEqualTo(Long value) {
+        public Criteria andLoginUserNotEqualTo(String value) {
             addCriterion("login_user <>", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserGreaterThan(Long value) {
+        public Criteria andLoginUserGreaterThan(String value) {
             addCriterion("login_user >", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserGreaterThanOrEqualTo(Long value) {
+        public Criteria andLoginUserGreaterThanOrEqualTo(String value) {
             addCriterion("login_user >=", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserLessThan(Long value) {
+        public Criteria andLoginUserLessThan(String value) {
             addCriterion("login_user <", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserLessThanOrEqualTo(Long value) {
+        public Criteria andLoginUserLessThanOrEqualTo(String value) {
             addCriterion("login_user <=", value, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserIn(List<Long> values) {
+        public Criteria andLoginUserLike(String value) {
+            addCriterion("login_user like", value, "loginUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginUserNotLike(String value) {
+            addCriterion("login_user not like", value, "loginUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginUserIn(List<String> values) {
             addCriterion("login_user in", values, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserNotIn(List<Long> values) {
+        public Criteria andLoginUserNotIn(List<String> values) {
             addCriterion("login_user not in", values, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserBetween(Long value1, Long value2) {
+        public Criteria andLoginUserBetween(String value1, String value2) {
             addCriterion("login_user between", value1, value2, "loginUser");
             return (Criteria) this;
         }
 
-        public Criteria andLoginUserNotBetween(Long value1, Long value2) {
+        public Criteria andLoginUserNotBetween(String value1, String value2) {
             addCriterion("login_user not between", value1, value2, "loginUser");
             return (Criteria) this;
         }

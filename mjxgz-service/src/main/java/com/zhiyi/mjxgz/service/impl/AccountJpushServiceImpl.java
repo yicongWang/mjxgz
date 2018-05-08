@@ -43,7 +43,7 @@ public class AccountJpushServiceImpl implements AccountJpushService {
 	}
 
 	@Override
-	public void deleteAccountJpushByAccountId(Long accountId) {
+	public void deleteAccountJpushByAccountId(String accountId) {
 		AccountJpushExample  accountJpushExample = new AccountJpushExample();
 		Criteria criteria = accountJpushExample.createCriteria();
 		criteria.andAccountIdEqualTo(accountId);
@@ -52,7 +52,7 @@ public class AccountJpushServiceImpl implements AccountJpushService {
 
 	
 	@Override
-	public List<AccountJpush> findAccountJpushByAccountId(Long accountId) {
+	public List<AccountJpush> findAccountJpushByAccountId(String accountId) {
 		AccountJpushExample  accountJpushExample = new AccountJpushExample();
 		Criteria criteria = accountJpushExample.createCriteria();
 		criteria.andAccountIdEqualTo(accountId);

@@ -23,12 +23,12 @@ public interface AccountJpushService {
 	 * 根据账号Id 移除账号推送关联
 	 * @param accountId
 	 */
-	void deleteAccountJpushByAccountId(Long accountId);
+	void deleteAccountJpushByAccountId(String accountId);
 	
 	/**
 	 *  根据账号Id获取账号推送关联
 	 * @param accountId
 	 * @return
 	 */
-	List<AccountJpush> findAccountJpushByAccountId(Long accountId);
+	List<AccountJpush> findAccountJpushByAccountId(String accountId);
 }

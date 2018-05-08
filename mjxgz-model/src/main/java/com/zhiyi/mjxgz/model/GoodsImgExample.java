@@ -525,52 +525,62 @@ public class GoodsImgExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdEqualTo(Long value) {
+        public Criteria andCreateUserIdEqualTo(String value) {
             addCriterion("create_user_id =", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdNotEqualTo(Long value) {
+        public Criteria andCreateUserIdNotEqualTo(String value) {
             addCriterion("create_user_id <>", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdGreaterThan(Long value) {
+        public Criteria andCreateUserIdGreaterThan(String value) {
             addCriterion("create_user_id >", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andCreateUserIdGreaterThanOrEqualTo(String value) {
             addCriterion("create_user_id >=", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdLessThan(Long value) {
+        public Criteria andCreateUserIdLessThan(String value) {
             addCriterion("create_user_id <", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andCreateUserIdLessThanOrEqualTo(String value) {
             addCriterion("create_user_id <=", value, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdIn(List<Long> values) {
+        public Criteria andCreateUserIdLike(String value) {
+            addCriterion("create_user_id like", value, "createUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateUserIdNotLike(String value) {
+            addCriterion("create_user_id not like", value, "createUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateUserIdIn(List<String> values) {
             addCriterion("create_user_id in", values, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdNotIn(List<Long> values) {
+        public Criteria andCreateUserIdNotIn(List<String> values) {
             addCriterion("create_user_id not in", values, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdBetween(Long value1, Long value2) {
+        public Criteria andCreateUserIdBetween(String value1, String value2) {
             addCriterion("create_user_id between", value1, value2, "createUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andCreateUserIdNotBetween(String value1, String value2) {
             addCriterion("create_user_id not between", value1, value2, "createUserId");
             return (Criteria) this;
         }
@@ -645,52 +655,62 @@ public class GoodsImgExample {
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdEqualTo(Long value) {
+        public Criteria andModifyUserIdEqualTo(String value) {
             addCriterion("modify_user_id =", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdNotEqualTo(Long value) {
+        public Criteria andModifyUserIdNotEqualTo(String value) {
             addCriterion("modify_user_id <>", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdGreaterThan(Long value) {
+        public Criteria andModifyUserIdGreaterThan(String value) {
             addCriterion("modify_user_id >", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andModifyUserIdGreaterThanOrEqualTo(String value) {
             addCriterion("modify_user_id >=", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdLessThan(Long value) {
+        public Criteria andModifyUserIdLessThan(String value) {
             addCriterion("modify_user_id <", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andModifyUserIdLessThanOrEqualTo(String value) {
             addCriterion("modify_user_id <=", value, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdIn(List<Long> values) {
+        public Criteria andModifyUserIdLike(String value) {
+            addCriterion("modify_user_id like", value, "modifyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyUserIdNotLike(String value) {
+            addCriterion("modify_user_id not like", value, "modifyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyUserIdIn(List<String> values) {
             addCriterion("modify_user_id in", values, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdNotIn(List<Long> values) {
+        public Criteria andModifyUserIdNotIn(List<String> values) {
             addCriterion("modify_user_id not in", values, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdBetween(Long value1, Long value2) {
+        public Criteria andModifyUserIdBetween(String value1, String value2) {
             addCriterion("modify_user_id between", value1, value2, "modifyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andModifyUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andModifyUserIdNotBetween(String value1, String value2) {
             addCriterion("modify_user_id not between", value1, value2, "modifyUserId");
             return (Criteria) this;
         }

@@ -21,7 +21,7 @@ public class RedisUserData implements Serializable {
     /**
      * 用户id
      */
-    private Long id;
+    private String id;
     /**
      * 登录帐号
      */
@@ -80,15 +80,17 @@ public class RedisUserData implements Serializable {
         this.accessToken = accessToken;
     }
 
-    public Long getId() {
-        return id;
-    }
+   
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public String getAccount() {
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getAccount() {
         return account;
     }
 

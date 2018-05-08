@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.GoodsMapperExt">
+	<select id="findGoodsList" resultType="com.zhiyi.mjxgz.dto.GoodsDTO" parameterType="map">
+		select 
+		<include refid="goodsBase"></include>
+		from 
+		goods g 
+		<if test="businessName != null and businessName !=''"> 
+                   left join business b on g.`business_id` = b.`id`
+        </if>
+		
+		where g.status = 1
+		
+		<trim>
+			<if test="categoryId != null"> 
+                    and g.`goods_category_id` = #{categoryId}
+         	</if>
+		
+            <if test="businessName != null and businessName !=''"> 
+                    and b.`name` like '%#{businessName}%'
+         	</if>
+         	
+         	<if test="businessId != null"> 
+                    and g.`business_id` = #{businessId}
+         	</if>
+         	
+         	
+         	<if test="excludeGoodsId != null"> 
+                    and g.`id` != #{excludeGoodsId}
+         	</if>
+       </trim>
+	</select>
+	
+	<select id="findGoodsInfoByGoodsId" resultType="com.zhiyi.mjxgz.vo.GoodsInfoVO" parameterType="map">
+		select 
+		<include refid="goodsBase"></include>
+		,b.`name` as businessName,
+		b.`special_remind` AS specialRemind,
+		b.`welfare_content` AS welfareContent
+		from goods g 
+		left join `business` b on b.`id` = g.`business_id`
+		where g.status = 1
+        	<if test="excludeGoodsId != null"> 
+                   and g.`id` != #{goodsId}
+        	</if>
+	</select>
+	
+	
+	<sql id="goodsBase">
+		g.`active_time_end` as activeTimeEnd,
+		g.`active_time_start` AS activeTimeStart,
+		g.`business_id` AS businessId,
+		g.`goods_category_id` AS categoryId,
+		g.`goods_name` AS goodsName,
+		g.`goods_title` AS goodsTitle,
+		g.`id` AS goodsId,
+		g.`img_url` as goodsImg,
+		g.`price` as price,
+		g.`surplus_quantity` as surplusQuantity,
+		g.`total_quantity` AS totalQuantity,
+		g.`unit`
+	</sql>
+	
+</mapper>

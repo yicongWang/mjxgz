@@ -24,9 +24,9 @@
     <result column="area_name" jdbcType="VARCHAR" property="areaName" />
     <result column="telphone" jdbcType="VARCHAR" property="telphone" />
     <result column="linkman" jdbcType="VARCHAR" property="linkman" />
-    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -172,8 +172,8 @@
       #{areaId,jdbcType=INTEGER}, #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, 
       #{baiduMapId,jdbcType=VARCHAR}, #{businessStart,jdbcType=VARCHAR}, #{businessEnd,jdbcType=VARCHAR}, 
       #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, 
-      #{telphone,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}
+      #{telphone,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zhiyi.mjxgz.model.BusinessShop">
@@ -303,13 +303,13 @@
         #{linkman,jdbcType=VARCHAR},
       </if>
       <if test="createUserId != null">
-        #{createUserId,jdbcType=BIGINT},
+        #{createUserId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyUserId != null">
-        #{modifyUserId,jdbcType=BIGINT},
+        #{modifyUserId,jdbcType=VARCHAR},
       </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
@@ -388,13 +388,13 @@
         linkman = #{record.linkman,jdbcType=VARCHAR},
       </if>
       <if test="record.createUserId != null">
-        create_user_id = #{record.createUserId,jdbcType=BIGINT},
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.modifyUserId != null">
-        modify_user_id = #{record.modifyUserId,jdbcType=BIGINT},
+        modify_user_id = #{record.modifyUserId,jdbcType=VARCHAR},
       </if>
       <if test="record.modifyTime != null">
         modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -428,9 +428,9 @@
       area_name = #{record.areaName,jdbcType=VARCHAR},
       telphone = #{record.telphone,jdbcType=VARCHAR},
       linkman = #{record.linkman,jdbcType=VARCHAR},
-      create_user_id = #{record.createUserId,jdbcType=BIGINT},
+      create_user_id = #{record.createUserId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_user_id = #{record.modifyUserId,jdbcType=BIGINT},
+      modify_user_id = #{record.modifyUserId,jdbcType=VARCHAR},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -495,13 +495,13 @@
         linkman = #{linkman,jdbcType=VARCHAR},
       </if>
       <if test="createUserId != null">
-        create_user_id = #{createUserId,jdbcType=BIGINT},
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyUserId != null">
-        modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
       </if>
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
@@ -532,9 +532,9 @@
       area_name = #{areaName,jdbcType=VARCHAR},
       telphone = #{telphone,jdbcType=VARCHAR},
       linkman = #{linkman,jdbcType=VARCHAR},
-      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

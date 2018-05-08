@@ -264,52 +264,62 @@ public class AccountJpushExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdEqualTo(Long value) {
+        public Criteria andAccountIdEqualTo(String value) {
             addCriterion("account_id =", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotEqualTo(Long value) {
+        public Criteria andAccountIdNotEqualTo(String value) {
             addCriterion("account_id <>", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdGreaterThan(Long value) {
+        public Criteria andAccountIdGreaterThan(String value) {
             addCriterion("account_id >", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andAccountIdGreaterThanOrEqualTo(String value) {
             addCriterion("account_id >=", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdLessThan(Long value) {
+        public Criteria andAccountIdLessThan(String value) {
             addCriterion("account_id <", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdLessThanOrEqualTo(Long value) {
+        public Criteria andAccountIdLessThanOrEqualTo(String value) {
             addCriterion("account_id <=", value, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdIn(List<Long> values) {
+        public Criteria andAccountIdLike(String value) {
+            addCriterion("account_id like", value, "accountId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountIdNotLike(String value) {
+            addCriterion("account_id not like", value, "accountId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountIdIn(List<String> values) {
             addCriterion("account_id in", values, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotIn(List<Long> values) {
+        public Criteria andAccountIdNotIn(List<String> values) {
             addCriterion("account_id not in", values, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdBetween(Long value1, Long value2) {
+        public Criteria andAccountIdBetween(String value1, String value2) {
             addCriterion("account_id between", value1, value2, "accountId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotBetween(Long value1, Long value2) {
+        public Criteria andAccountIdNotBetween(String value1, String value2) {
             addCriterion("account_id not between", value1, value2, "accountId");
             return (Criteria) this;
         }
