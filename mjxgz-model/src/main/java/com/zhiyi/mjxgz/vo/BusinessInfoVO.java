@@ -13,6 +13,17 @@ public class BusinessInfoVO{
 	@ApiModelProperty(value ="商家门店信息列表")
 	private List<BusinessShop> shopList;
 	
+	@ApiModelProperty(value ="商家Logo图")
+	private String logoImg;
+	
+	public String getLogoImg() {
+		return logoImg;
+	}
+
+	public void setLogoImg(String logoImg) {
+		this.logoImg = logoImg;
+	}
+
 	@ApiModelProperty(value ="商家编号")
 	private String businessId;
 	

@@ -16,5 +16,7 @@ import com.zhiyi.mjxgz.vo.BusinessInfoVO;
 @Mapper
 public interface BusinessMapperExt  extends BusinessMapper{
 
-	List<BusinessInfoVO> findBusinessInfoByBusinessId(Map<String, Object> map);
+	List<BusinessInfoVO> findBusinessInfo(Map<String, Object> map);
+
+	List<BusinessInfoVO> findBusinessInfoList(Map<String, Object> map);
 }

@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhiyi.mjxgz.dao.ex.BusinessMapperExt;
 import com.zhiyi.mjxgz.service.BusinessService;
 import com.zhiyi.mjxgz.vo.BusinessInfoVO;
@@ -32,11 +34,24 @@ public class BusinessServiceImpl implements BusinessService {
 		BusinessInfoVO businessInfoVO = null;
 		Map<String,Object> map = new HashMap<>();
 		map.put("businessId", businessId);
-		List<BusinessInfoVO> list = businessMapperExt.findBusinessInfoByBusinessId(map);
+		List<BusinessInfoVO> list = businessMapperExt.findBusinessInfo(map);
 		if(CollectionUtils.isNotEmpty(list)){
 			businessInfoVO = list.get(0);
 		}
 		return businessInfoVO;
+	}
+
+	@Override
+	public List<BusinessInfoVO> findBusinessInfoList(String businessName) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("businessName", businessName);
+		return  businessMapperExt.findBusinessInfo(map);
+	}
+
+	@Override
+	public PageInfo<BusinessInfoVO> findusinessInfoPage(String businessName, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(findBusinessInfoList(businessName));
 	}
 	
 }

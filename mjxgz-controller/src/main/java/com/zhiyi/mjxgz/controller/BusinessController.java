@@ -1,5 +1,7 @@
    package com.zhiyi.mjxgz.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
 import com.zhiyi.mjxgz.common.response.CommonResponse;
+import com.zhiyi.mjxgz.common.response.PageResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
+import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.service.BusinessImgService;
 import com.zhiyi.mjxgz.service.BusinessService;
 import com.zhiyi.mjxgz.service.BusinessShopService;
@@ -18,6 +23,7 @@ import com.zhiyi.mjxgz.vo.BusinessInfoVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 商品控制器
@@ -99,6 +105,25 @@ public class BusinessController {
             }
             commonResponse.setData(businessInfoVO);
         return commonResponse;
+    }
+    
+    
+    @ApiOperation(value = "分页获取商家列表",response=BusinessInfoVO.class )
+    @RequestMapping(value = "/findBusinessInfoPage", method = RequestMethod.GET)
+    public PageResponse findBusinessInfoPage(@ApiParam(value="商家名称 (支持模糊查询)") String businessName,Integer pageNum ,Integer pageSize ) throws Exception{
+ 	   
+ 	   if(pageNum == null){
+ 		   pageNum = 1;
+ 	   }
+ 	   
+ 	   if(pageSize == null){
+ 		   pageSize = 20;
+ 	   }
+ 	   
+        PageResponse response = new PageResponse(ResponseCode.SUCCESS, "OK");
+        
+        response.setData(businessService.findusinessInfoPage(businessName, pageNum, pageSize));
+    	return response;
     }
     
 }
