@@ -80,7 +80,7 @@
                 <jpush.masterSecret>3d193ed21073cacca3c922f8</jpush.masterSecret>
 
                 <!-- web服务端口设置-->
-                <server.port>8090</server.port>
+                <server.port>433</server.port>
                 <server.ssl.key-store-password>111111</server.ssl.key-store-password>
  				
             </properties>
