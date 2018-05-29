@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.zhiyi.mjxgz.dto.GoodsDTO;
+import com.zhiyi.mjxgz.model.GoodsDetail;
 import com.zhiyi.mjxgz.vo.GoodsInfoVO;
 
 /**
@@ -45,4 +46,12 @@ public interface GoodsService {
 	 * @return
 	 */
 	GoodsInfoVO findGoodsInfoByGoodsId(Long goodsId);
+	
+	/**
+	 * 根据分类或者商家名称获取商品列表
+	 * @param categoryId
+	 * @param businessName
+	 * @return
+	 */
+	 List<GoodsDetail> findGoodsDetailList(Long goodsId);
 }

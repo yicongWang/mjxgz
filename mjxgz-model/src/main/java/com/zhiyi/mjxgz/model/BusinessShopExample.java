@@ -566,66 +566,6 @@ public class BusinessShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIsNull() {
-            addCriterion("region_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdIsNotNull() {
-            addCriterion("region_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdEqualTo(Integer value) {
-            addCriterion("region_id =", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdNotEqualTo(Integer value) {
-            addCriterion("region_id <>", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdGreaterThan(Integer value) {
-            addCriterion("region_id >", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("region_id >=", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdLessThan(Integer value) {
-            addCriterion("region_id <", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdLessThanOrEqualTo(Integer value) {
-            addCriterion("region_id <=", value, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdIn(List<Integer> values) {
-            addCriterion("region_id in", values, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdNotIn(List<Integer> values) {
-            addCriterion("region_id not in", values, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdBetween(Integer value1, Integer value2) {
-            addCriterion("region_id between", value1, value2, "regionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegionIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("region_id not between", value1, value2, "regionId");
-            return (Criteria) this;
-        }
-
         public Criteria andAreaIdIsNull() {
             addCriterion("area_id is null");
             return (Criteria) this;
@@ -683,6 +623,66 @@ public class BusinessShopExample {
 
         public Criteria andAreaIdNotBetween(Integer value1, Integer value2) {
             addCriterion("area_id not between", value1, value2, "areaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdIsNull() {
+            addCriterion("region_business_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdIsNotNull() {
+            addCriterion("region_business_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdEqualTo(Integer value) {
+            addCriterion("region_business_id =", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdNotEqualTo(Integer value) {
+            addCriterion("region_business_id <>", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdGreaterThan(Integer value) {
+            addCriterion("region_business_id >", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("region_business_id >=", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdLessThan(Integer value) {
+            addCriterion("region_business_id <", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdLessThanOrEqualTo(Integer value) {
+            addCriterion("region_business_id <=", value, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdIn(List<Integer> values) {
+            addCriterion("region_business_id in", values, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdNotIn(List<Integer> values) {
+            addCriterion("region_business_id not in", values, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdBetween(Integer value1, Integer value2) {
+            addCriterion("region_business_id between", value1, value2, "regionBusinessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionBusinessIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("region_business_id not between", value1, value2, "regionBusinessId");
             return (Criteria) this;
         }
 

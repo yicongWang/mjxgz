@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhiyi.mjxgz.dao.ex.GoodsDetailMapperExt;
 import com.zhiyi.mjxgz.dao.ex.GoodsMapperExt;
 import com.zhiyi.mjxgz.dto.GoodsDTO;
+import com.zhiyi.mjxgz.model.GoodsDetail;
+import com.zhiyi.mjxgz.model.GoodsDetailExample;
 import com.zhiyi.mjxgz.service.GoodsService;
 import com.zhiyi.mjxgz.vo.GoodsInfoVO;
 
@@ -28,7 +31,8 @@ public class GoodsServiceImpl implements GoodsService {
     
     @Autowired
     private GoodsMapperExt goodsMapperExt;
-
+    @Autowired
+    private GoodsDetailMapperExt goodsDetailMapperExt;
 	@Override
 	public List<GoodsDTO> findGoodsList(Long categoryId, String businessName) {
 		Map<String,Object> map = new java.util.HashMap<>();
@@ -61,5 +65,12 @@ public class GoodsServiceImpl implements GoodsService {
 			goodsInfoVO = list.get(0);
 		}
 		return goodsInfoVO;
+	}
+
+	@Override
+	public List<GoodsDetail> findGoodsDetailList(Long goodsId) {
+		GoodsDetailExample example = new GoodsDetailExample();
+		example.createCriteria().andGoodsIdEqualTo(goodsId);
+		return goodsDetailMapperExt.selectByExample(example);
 	}
 }

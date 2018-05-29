@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
@@ -110,7 +111,9 @@ public class BusinessController {
     
     @ApiOperation(value = "分页获取商家列表",response=BusinessInfoVO.class )
     @RequestMapping(value = "/findBusinessInfoPage", method = RequestMethod.GET)
-    public PageResponse findBusinessInfoPage(@ApiParam(value="商家名称 (支持模糊查询)") String businessName,Integer pageNum ,Integer pageSize ) throws Exception{
+    public PageResponse findBusinessInfoPage(@ApiParam(value="商家名称 (支持模糊查询)")@RequestParam(name="businessName",required =false)  String businessName,
+    		@RequestParam(name="pageNum",required =false) Integer pageNum ,
+    		@RequestParam(name="pageSize",required =false) Integer pageSize ) throws Exception{
  	   
  	   if(pageNum == null){
  		   pageNum = 1;

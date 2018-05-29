@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhiyi.mjxgz.common.response.CommonResponse;
@@ -54,7 +55,9 @@ public class IndexController {
   
    @ApiOperation(value = "分页获取首页商品列表",response=GoodsDTO.class )
    @RequestMapping(value = "/findIndexGoodsPage", method = RequestMethod.GET)
-   public PageResponse findIndexGoodsPage(@ApiParam(value="分类ID")Long categoryId,@ApiParam(value="商家名称 (支持模糊查询)") String businessName,Integer pageNum ,Integer pageSize ) throws Exception{
+   public PageResponse findIndexGoodsPage(@ApiParam(value="分类ID") @RequestParam(name="categoryId",required =false) Long categoryId
+		   ,@ApiParam(value="商家名称 (支持模糊查询)")  @RequestParam(name="businessName",required =false) String businessName
+		   ,@RequestParam(name="pageNum",required =false) Integer pageNum ,@RequestParam(name="pageSize",required =false) Integer pageSize ) throws Exception{
 	   
 	   if(pageNum == null){
 		   pageNum = 1;

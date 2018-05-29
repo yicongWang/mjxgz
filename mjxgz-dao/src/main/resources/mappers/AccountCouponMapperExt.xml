@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.mjxgz.dao.ex.AccountCouponMapperExt">
+  <select id="findAccountCouponList" resultType="com.zhiyi.mjxgz.vo.AccountCouponInfoVO" parameterType="map">
+  SELECT 
+	bc.`coupon_img` AS couponImg,
+	bc.`coupon_name` AS couponName,
+	bc.`coupon_title` AS couponTitle,
+	ac.`coupon_code`  AS couponCode,
+	ac.`account_id` AS accountId,
+	ac.`business_id` AS businessId,
+	ac.`coupon_id` AS couponId,
+	ac.`status`,
+	ac.`start_time` AS startTime,
+	ac.`end_time` AS endTime,
+	IF(ac.`status`=1,1,IF(ac.`end_time` &lt; NOW(),2,ac.`status`)) AS status,
+	IF(ac.`status`=1,"已使用",IF(ac.`end_time`&lt;NOW(),"过期",IF(ac.`status`=0,"未使用","已使用"))) AS statusName
+	FROM `account_coupon` ac
+	LEFT JOIN `business_coupon` bc
+	ON ac.`coupon_id` = bc.`id`
+	WHERE ac.`status` &lt;&gt; 2
+	<if test="accountId!=null and accountId!=''">
+        and ac.`account_id` =${accountId}
+    </if>
+    <if test="status!=null and status!=''">
+        and ac.`status` =${status}
+    </if>
+    
+    ORDER BY ac.`create_time` DESC
+  </select>
+</mapper>

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.model.BusinessCoupon;
 import com.zhiyi.mjxgz.model.BusinessShop;
+import com.zhiyi.mjxgz.model.GoodsDetail;
 
 import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,7 +19,9 @@ public class GoodsInfoVO extends GoodsDTO{
 	@ApiModelProperty(value ="商家福利券列表")
 	private List<BusinessCoupon> couponList;
 	
-	
+	@ApiModelProperty(value ="产品详情")
+	private List<GoodsDetail> goodsDetail;
+
 	@ApiModelProperty(value ="商家名称")
 	private String businessName;
 	
@@ -28,6 +31,14 @@ public class GoodsInfoVO extends GoodsDTO{
 	@ApiModelProperty(value ="特别提醒 (最好用webview解析)")
 	private String specialRemind;
 
+	
+	public List<GoodsDetail> getGoodsDetail() {
+		return goodsDetail;
+	}
+
+	public void setGoodsDetail(List<GoodsDetail> goodsDetail) {
+		this.goodsDetail = goodsDetail;
+	}
 	public String getBusinessName() {
 		return businessName;
 	}

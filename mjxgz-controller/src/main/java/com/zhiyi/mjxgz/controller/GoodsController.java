@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
@@ -70,7 +71,7 @@ public class GoodsController {
      */
     @ApiOperation(value = "根据商家Id获取商品列表(服务项目)",response = GoodsDTO.class)
     @RequestMapping(value = "/findBusinessGoodsList/{businessId}", method = RequestMethod.GET)
-    public CommonResponse findBusinessGoodsList(@PathVariable Long businessId,@ApiParam(value="排除的商品Id") String excludeGoodsId) {
+    public CommonResponse findBusinessGoodsList(@PathVariable Long businessId,@ApiParam(value="排除的商品Id",name="excludeGoodsId")@RequestParam(name= "excludeGoodsId",required =false) String excludeGoodsId) {
         CommonResponse commonResponse = new CommonResponse();
         try {
             commonResponse.setCode(ResponseCode.SUCCESS);
@@ -96,6 +97,7 @@ public class GoodsController {
             commonResponse.setCode(ResponseCode.SUCCESS);
             GoodsInfoVO goodsInfoVO = goodsService.findGoodsInfoByGoodsId(goodsId);
             if(null != goodsInfoVO){
+            	goodsInfoVO.setGoodsDetail(goodsService.findGoodsDetailList(goodsId));
             	goodsInfoVO.setShopList(businessShopService.findShopInfoList(goodsInfoVO.getBusinessId()));
                 goodsInfoVO.setCouponList(businessCouponService.findCouponByBusinessId(goodsInfoVO.getBusinessId()));
             }else{

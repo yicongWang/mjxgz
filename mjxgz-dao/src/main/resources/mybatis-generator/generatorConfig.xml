@@ -52,7 +52,7 @@
 		<!-- 账户信息表 -->
         <table tableName="account" domainObjectName="Account" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false" />
-            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="false" />
         </table>
 			
        
@@ -144,6 +144,16 @@
         </table>
        
           <table tableName="goods_category" domainObjectName="GoodsCategory" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+        
+        <table tableName="account_coupon" domainObjectName="AccountCoupon" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+        
+         <table tableName="business_coupon" domainObjectName="BusinessCoupon" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>

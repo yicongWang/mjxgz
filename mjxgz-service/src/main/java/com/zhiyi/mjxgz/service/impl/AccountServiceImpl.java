@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import com.zhiyi.mjxgz.model.AccountExample;
 import com.zhiyi.mjxgz.service.AccountService;
 import com.zhiyi.mjxgz.util.MailUtill;
 import com.zhiyi.mjxgz.util.RedisUtil;
+import com.zhiyi.mjxgz.vo.UserInfoVO;
 
 /**
  * 用户信息ServiceImpl
@@ -27,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
     
     @Autowired
     private AccountMapperExt accountMapperExt;
-    
+   
     @Autowired
 	private MailUtill mailUtill; 
     @Autowired
@@ -44,6 +46,22 @@ public class AccountServiceImpl implements AccountService {
 	        }
 	        criteria.andStatusEqualTo(InfoState.DELETED);
 	        return accountMapperExt.selectByExample(accountExample);
+	}
+	@Override
+	public void insertAccounts(Account account) {
+		accountMapperExt.insert(account);
+		
+	}
+	@Override
+	public void updateAccount(UserInfoVO userInfoVO,String openid) {
+		   Account account = new Account();
+		   BeanUtils.copyProperties(userInfoVO, account);
+		   account.setHeardImg(userInfoVO.getAvatarUrl());
+		   account.setSex(userInfoVO.getGender());
+		   
+		   AccountExample example = new AccountExample();
+		   example.createCriteria().andOpenidEqualTo(openid);
+		   accountMapperExt.updateByExampleSelective(account, example);
 	}
    
    

@@ -1,11 +1,8 @@
 package com.zhiyi.mjxgz.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * 用于Redis保存用户信息的普通bean<br/>
@@ -70,7 +67,51 @@ public class RedisUserData implements Serializable {
      */
     private String terminalType;
 
-   
+    private String openid;
+    private String nickName;
+    public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	private String country;
+    private String province;
+    private String city;
 
     public String getAccessToken() {
         return accessToken;
