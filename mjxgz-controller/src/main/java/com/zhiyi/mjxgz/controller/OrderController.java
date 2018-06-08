@@ -1,8 +1,5 @@
 package com.zhiyi.mjxgz.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +42,6 @@ public class OrderController {
     @RequestMapping(value = "/getPayInformation/{orderNumber}", method = RequestMethod.POST)
     public CommonResponse getPayInformation(@PathVariable String orderNumber,@CurrentRedisUserData RedisUserData redisUserData) throws Exception{
     	return CommonResponse.success(vipOrderService.getPayInformation(redisUserData.getOpenid(), orderNumber, redisUserData.getRequestIP()));
-    }
-    
-    @ApiOperation(value = "支付回调")
-    @RequestMapping(value = "/notify_url", method = RequestMethod.POST)
-    public CommonResponse notify_url(HttpServletRequest request,HttpServletResponse response) throws Exception{
-    	logger.info("--notify_url---");
-    	return CommonResponse.success();
     }
     
 }

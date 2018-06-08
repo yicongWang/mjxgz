@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -118,4 +119,18 @@ public class VipOrderServiceImpl implements VipOrderService {
          }
 	      return resultMap;	      
 	}
+
+
+	@Override
+	public void handlePayResult(SortedMap<Object, Object> packageParams) {
+	/*	  String mch_id = (String)packageParams.get("mch_id");  
+          String openid = (String)packageParams.get("openid");  
+          String is_subscribe = (String)packageParams.get("is_subscribe");  
+          String out_trade_no = (String)packageParams.get("out_trade_no");  
+          String total_fee = (String)packageParams.get("total_fee"); */ 
+		
+		
+		
+	}
+	
 }

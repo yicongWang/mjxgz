@@ -1,6 +1,7 @@
 package com.zhiyi.mjxgz.service;
 
 import java.util.Map;
+import java.util.SortedMap;
 
 /**
  *vip订单
@@ -13,4 +14,5 @@ public interface VipOrderService {
 
 	Map<String, Object> getPayInformation(String openId, String orderNumber, String requestIp) throws Exception;
 	
+	void handlePayResult( SortedMap<Object,Object> packageParams);
 }
