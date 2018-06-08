@@ -277,7 +277,7 @@ public class AccountController {
     public CommonResponse useActiveCode(@RequestBody ActiveInfoVO activeInfoVO,@CurrentRedisUserData RedisUserData redisUserData,  @RequestHeader String access_token) {
         CommonResponse commonResponse = new CommonResponse();
         try {
-        	activationCodeService.useActiveCode(activeInfoVO,"0");//redisUserData.getId()
+        	activationCodeService.useActiveCode(activeInfoVO,redisUserData.getId());
             commonResponse.setCode(ResponseCode.SUCCESS);
             commonResponse.setMsg("success");
             logger.info(commonResponse.getMsg());
