@@ -42,9 +42,12 @@ public class AccountServiceImpl implements AccountService {
 	            if(!StringUtils.isBlank(account.getMobilePhone())){
 	                criteria.andMobilePhoneEqualTo( account.getMobilePhone());
 	            }
-
+	            
+	            if(StringUtils.isNotBlank(account.getOpenid())){
+	                criteria.andOpenidEqualTo( account.getOpenid());
+	            }
 	        }
-	        criteria.andStatusEqualTo(InfoState.DELETED);
+	        criteria.andStatusNotEqualTo(InfoState.DELETED);
 	        return accountMapperExt.selectByExample(accountExample);
 	}
 	@Override

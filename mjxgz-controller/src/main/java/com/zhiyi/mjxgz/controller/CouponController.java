@@ -1,5 +1,7 @@
    package com.zhiyi.mjxgz.controller;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
+import com.zhiyi.mjxgz.controller.common.AccessRequired;
+import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
+import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.service.AccountCouponService;
+import com.zhiyi.mjxgz.util.DateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +28,7 @@ import io.swagger.annotations.ApiParam;
  * @author wyc
  *
  */
+@AccessRequired
 @Api(description = "券管理接口")
 @RestController
 @RequestMapping("/coupon")
@@ -53,10 +60,9 @@ public class CouponController {
         }
         return commonResponse;
     }
-    
-    
+      
     @ApiOperation(value = "移除用户券")
-    @RequestMapping(value = "/removeAccountCoupon", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeAccountCoupon", method = RequestMethod.GET)
     public CommonResponse removeAccountCoupon(@ApiParam(name="accountCouponId",value="用户券ID") @RequestParam(name="accountCouponId") Long accountCouponId) {
         CommonResponse commonResponse = new CommonResponse();
         try {
@@ -69,4 +75,31 @@ public class CouponController {
         }
         return commonResponse;
     }
+    
+    @ApiOperation(value = "领取商品券")
+    @RequestMapping(value = "/takeCoupon", method = RequestMethod.GET)
+    public CommonResponse takeCoupon(@ApiParam(name="couponId",value="商品券ID")Long couponId,@CurrentRedisUserData RedisUserData redisUserData) {
+        CommonResponse commonResponse = new CommonResponse();
+        try {
+        	long time = new Date().getTime();
+        	if(null == redisUserData.getExpireTime()){
+        		commonResponse.setMsg("您还未开通会员");
+        		commonResponse.setCode(ResponseCode.VIP_EXPIR);
+        	}else if(redisUserData.getExpireTime().getTime() < time){
+        		commonResponse.setCode(ResponseCode.VIP_EXPIR);
+        		commonResponse.setMsg("您的会员已过期,请续费");
+        	}else{
+        		accountCouponService.takeCoupon(couponId,redisUserData.getId());
+        		commonResponse.setCode(ResponseCode.SUCCESS);
+        		commonResponse.setMsg("领取成功");
+        	}
+           
+        } catch (Exception e) {
+            commonResponse.setCode(ResponseCode.SERVER_ERROR);
+            commonResponse.setMsg("请求数据异常,请稍后");
+            logger.error("----goodsBanner---error:"+e.getMessage(),e);
+        }
+        return commonResponse;
+    }
+    
 }

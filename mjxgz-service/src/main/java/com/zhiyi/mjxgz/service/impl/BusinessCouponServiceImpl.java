@@ -32,10 +32,20 @@ public class BusinessCouponServiceImpl implements BusinessCouponService {
 		Criteria criteria = example.createCriteria();
 		criteria.andBusinessIdEqualTo(businessId);
 		criteria.andStatusEqualTo(1);//启用
+		criteria.andCouponTypeEqualTo(1);//商家券
 		example.setOrderByClause("sort asc");
 		return businessCouponMapperExt.selectByExample(example);
 	}
 
-
-	
+	@Override
+	public List<BusinessCoupon> findCouponByGoodsId(Long businessId, Long goodsId) {
+		BusinessCouponExample example = new BusinessCouponExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andBusinessIdEqualTo(businessId);
+		criteria.andStatusEqualTo(1);//启用
+		criteria.andGoodsIdEqualTo(goodsId);
+		criteria.andCouponTypeEqualTo(2);//商品券
+		example.setOrderByClause("sort asc");
+		return businessCouponMapperExt.selectByExample(example);
+	}
 }

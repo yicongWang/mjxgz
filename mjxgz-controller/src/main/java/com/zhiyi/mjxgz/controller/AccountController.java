@@ -1,10 +1,7 @@
    package com.zhiyi.mjxgz.controller;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zhiyi.mjxgz.common.constants.InfoState;
 import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
 import com.zhiyi.mjxgz.controller.common.AccessRequired;
@@ -32,20 +27,19 @@ import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
 import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.model.Account;
 import com.zhiyi.mjxgz.model.LoginLog;
-import com.zhiyi.mjxgz.qo.LoginQo;
 import com.zhiyi.mjxgz.service.AccountCouponService;
 import com.zhiyi.mjxgz.service.AccountService;
+import com.zhiyi.mjxgz.service.ActivationCodeService;
 import com.zhiyi.mjxgz.service.LoginLogService;
 import com.zhiyi.mjxgz.util.DateUtil;
 import com.zhiyi.mjxgz.util.HttpRequest;
 import com.zhiyi.mjxgz.util.JwtHelper;
-import com.zhiyi.mjxgz.util.Md5Utils;
 import com.zhiyi.mjxgz.util.NetworkUtil;
 import com.zhiyi.mjxgz.util.RedisUtil;
 import com.zhiyi.mjxgz.util.ServiceUtil;
 import com.zhiyi.mjxgz.util.StdRandom;
 import com.zhiyi.mjxgz.util.UserSettings;
-import com.zhiyi.mjxgz.util.ValidatorUtil;
+import com.zhiyi.mjxgz.vo.ActiveInfoVO;
 import com.zhiyi.mjxgz.vo.UserInfoVO;
 
 import io.swagger.annotations.Api;
@@ -78,6 +72,9 @@ public class AccountController {
 
     @Autowired
     private AccountCouponService accountCouponService;	
+    
+    @Autowired
+    private ActivationCodeService activationCodeService;
     
     /**
      * 用户登录
@@ -251,8 +248,6 @@ public class AccountController {
                 commonResponse.setCode(ResponseCode.SERVER_ERROR);
                 commonResponse.setMsg("service error");
             }
-            
-            
             return commonResponse;
       }
 
@@ -260,7 +255,7 @@ public class AccountController {
     @ApiOperation(value = "更新用户信息")
     @AccessRequired
     @RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
-    public CommonResponse updateUserInfo(UserInfoVO userInfoVO,@CurrentRedisUserData RedisUserData redisUserData) {
+    public CommonResponse updateUserInfo(@RequestBody UserInfoVO userInfoVO,@CurrentRedisUserData RedisUserData redisUserData,  @RequestHeader String access_token) {
         CommonResponse commonResponse = new CommonResponse();
         try {
             //移除accessToken
@@ -277,6 +272,24 @@ public class AccountController {
     }
     
 
+    @ApiOperation(value = "使用激活码续费会员", notes = "使用激活码续费会员")
+    @RequestMapping(value = "/useActiveCode", method = RequestMethod.POST)
+    public CommonResponse useActiveCode(@RequestBody ActiveInfoVO activeInfoVO,@CurrentRedisUserData RedisUserData redisUserData,  @RequestHeader String access_token) {
+        CommonResponse commonResponse = new CommonResponse();
+        try {
+        	activationCodeService.useActiveCode(activeInfoVO,"0");//redisUserData.getId()
+            commonResponse.setCode(ResponseCode.SUCCESS);
+            commonResponse.setMsg("success");
+            logger.info(commonResponse.getMsg());
+        } catch (Exception e) {
+            logger.error("useActiveCode failed", e);
+            commonResponse.setCode(ResponseCode.SERVER_ERROR);
+            commonResponse.setMsg("service error");
+        }
+        return commonResponse;
+    }
+    
+    
     /**
      * 用户退出登录
      *
@@ -320,5 +333,7 @@ public class AccountController {
         return loginLogService.add(loginLog) > 0 ? true : false;
     }
 
+    
+    
     
 }

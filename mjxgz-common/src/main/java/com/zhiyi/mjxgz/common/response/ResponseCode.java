@@ -59,6 +59,9 @@ public class ResponseCode {
      * 表示其他服务端错误
      */
     public static final int SERVER_ERROR = 500;
-
+    /**
+     * 表示VIP已过去
+     */
+    public static final int VIP_EXPIR = 1001;
 
 }

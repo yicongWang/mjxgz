@@ -1,6 +1,7 @@
 package com.zhiyi.mjxgz.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -69,7 +70,18 @@ public class RedisUserData implements Serializable {
 
     private String openid;
     private String nickName;
-    public String getOpenid() {
+    //会员到期时间
+    private Date expireTime;
+    
+    public Date getExpireTime() {
+		return expireTime;
+	}
+
+	public void setExpireTime(Date expireTime) {
+		this.expireTime = expireTime;
+	}
+
+	public String getOpenid() {
 		return openid;
 	}
 

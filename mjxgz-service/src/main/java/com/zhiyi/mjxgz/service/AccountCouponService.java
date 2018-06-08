@@ -23,4 +23,11 @@ public interface AccountCouponService {
 	 * @param accountCouponId
 	 */
 	void updateAccountCoupon(Long accountCouponId,int status);
+
+	/**
+	 * 领取券
+	 * @param couponId
+	 * @param id
+	 */
+	void takeCoupon(Long couponId, String accountId);
 }

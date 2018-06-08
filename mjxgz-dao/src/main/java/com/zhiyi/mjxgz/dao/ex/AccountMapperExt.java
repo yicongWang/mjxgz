@@ -1,5 +1,7 @@
 package com.zhiyi.mjxgz.dao.ex;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.zhiyi.mjxgz.dao.AccountMapper;
@@ -11,4 +13,5 @@ import com.zhiyi.mjxgz.dao.AccountMapper;
 @Mapper
 public interface AccountMapperExt extends AccountMapper{
   
+	int updateAccountVipExpireTime(Map<String,Object> map);
 }

@@ -99,7 +99,7 @@ public class GoodsController {
             if(null != goodsInfoVO){
             	goodsInfoVO.setGoodsDetail(goodsService.findGoodsDetailList(goodsId));
             	goodsInfoVO.setShopList(businessShopService.findShopInfoList(goodsInfoVO.getBusinessId()));
-                goodsInfoVO.setCouponList(businessCouponService.findCouponByBusinessId(goodsInfoVO.getBusinessId()));
+                goodsInfoVO.setCouponList(businessCouponService.findCouponByGoodsId(goodsInfoVO.getBusinessId(),goodsId));//商品券
             }else{
             	throw new  DataNotExistsException("商品不存在");
             }
