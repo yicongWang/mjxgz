@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.zhiyi.mjxgz.common.constants.InfoState;
 import com.zhiyi.mjxgz.dao.ex.AccountMapperExt;
+import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.model.Account;
 import com.zhiyi.mjxgz.model.AccountExample;
 import com.zhiyi.mjxgz.service.AccountService;
 import com.zhiyi.mjxgz.util.MailUtill;
 import com.zhiyi.mjxgz.util.RedisUtil;
+import com.zhiyi.mjxgz.util.UserSettings;
 import com.zhiyi.mjxgz.vo.UserInfoVO;
 
 /**
@@ -29,7 +31,8 @@ public class AccountServiceImpl implements AccountService {
     
     @Autowired
     private AccountMapperExt accountMapperExt;
-   
+    @Autowired
+    private UserSettings userSettings;
     @Autowired
 	private MailUtill mailUtill; 
     @Autowired
@@ -61,10 +64,20 @@ public class AccountServiceImpl implements AccountService {
 		   BeanUtils.copyProperties(userInfoVO, account);
 		   account.setHeardImg(userInfoVO.getAvatarUrl());
 		   account.setSex(userInfoVO.getGender());
-		   
 		   AccountExample example = new AccountExample();
 		   example.createCriteria().andOpenidEqualTo(openid);
 		   accountMapperExt.updateByExampleSelective(account, example);
+		   try{
+			  String accessToken = (String) redisUtil.get(openid);
+			  RedisUserData redisUserData = (RedisUserData) redisUtil.get(accessToken);
+			  redisUserData.setAvatarUrl(userInfoVO.getAvatarUrl());
+			  redisUserData.setNickName(userInfoVO.getNickName());
+			  Long invalid = Long.parseLong(userSettings.getSessionInvalid()) * 60;//要小于30天session_key
+			  redisUtil.set(accessToken, redisUserData, invalid);
+		   }catch(Exception e){
+			   logger.error("更新用户信息缓存异常："+e.getMessage(),e);
+		   }
+		 
 	}
    
    

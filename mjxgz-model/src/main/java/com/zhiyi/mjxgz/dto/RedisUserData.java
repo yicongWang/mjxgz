@@ -40,7 +40,7 @@ public class RedisUserData implements Serializable {
     /**
      * 头像路径
      */
-    private String headImgPath;
+    private String avatarUrl;
 
     /**
      * 角色
@@ -184,16 +184,18 @@ public class RedisUserData implements Serializable {
         this.email = email;
     }
 
-    public String getHeadImgPath() {
-        return headImgPath;
-    }
-
-    public void setHeadImgPath(String headImgPath) {
-        this.headImgPath = headImgPath;
-    }
+ 
 
 
-    public String getRoleName() {
+    public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public String getRoleName() {
 		return roleName;
 	}
 

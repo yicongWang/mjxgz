@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,13 +35,13 @@ public class OrderController {
     @AccessRequired
     @ApiOperation(value = "购买会员套餐下单,返回订单号")
     @RequestMapping(value = "/buyorder", method = RequestMethod.POST)
-    public CommonResponse buyorder(@RequestBody MealOrderInfoVO mealOrderInfoVO,@CurrentRedisUserData RedisUserData redisUserData){
+    public CommonResponse buyorder(@RequestBody MealOrderInfoVO mealOrderInfoVO,@CurrentRedisUserData RedisUserData redisUserData,  @RequestHeader String access_token){
     	return CommonResponse.success(vipOrderService.buyorder(mealOrderInfoVO.getVipMealId(),redisUserData.getId()));
     }
     @AccessRequired
     @ApiOperation(value = "调起支付")
     @RequestMapping(value = "/getPayInformation/{orderNumber}", method = RequestMethod.POST)
-    public CommonResponse getPayInformation(@PathVariable String orderNumber,@CurrentRedisUserData RedisUserData redisUserData) throws Exception{
+    public CommonResponse getPayInformation(@PathVariable String orderNumber,@CurrentRedisUserData RedisUserData redisUserData,  @RequestHeader String access_token) throws Exception{
     	return CommonResponse.success(vipOrderService.getPayInformation(redisUserData.getOpenid(), orderNumber, redisUserData.getRequestIP()));
     }
     

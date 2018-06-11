@@ -44,7 +44,7 @@ public class WxPayController {
     @Value("${api_key}")
     private String api_key;  // 账号信息 
     @ApiOperation(value = "支付回调")
-    @RequestMapping(value = "/notify_url", method = RequestMethod.POST)
+    @RequestMapping(value = "/notify_url")
     public void  notifyUrl(HttpServletRequest request,HttpServletResponse response) throws IOException, JDOMException{
 		logger.debug("-wxpay---notifyUrl----start----");
 		 //读取参数  

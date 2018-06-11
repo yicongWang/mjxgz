@@ -220,6 +220,7 @@ public class AccountController {
                     }
                     redisUserData.setAccessToken(accessToken);
                     BeanUtils.copyProperties(account, redisUserData);
+                    redisUserData.setAvatarUrl(account.getHeardImg());
                     redisUserData.setOpenid(openId);
                     redisUserData.setLoginTime(DateUtil.dateToStr(currentDate,DateUtil.DATETIME_DEFAULT_FORMAT));
                     //设置请求ip地址和访问终端类型

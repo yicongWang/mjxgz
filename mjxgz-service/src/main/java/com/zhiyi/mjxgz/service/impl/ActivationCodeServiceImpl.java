@@ -65,6 +65,7 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
 			accountVipRecord.setAccountId(accountId);
 			accountVipRecord.setCode(activeInfoVO.getCode());
 			accountVipRecord.setRemark("使用了激活码"+activeInfoVO.getCode()+"续费"+activationCode.getDay()+"天");
+			accountVipRecord.setType(2);
 			accountVipRecordMapperExt.insert(accountVipRecord);
 		}else{
 			throw new DataNotExistsException("激活码错误");

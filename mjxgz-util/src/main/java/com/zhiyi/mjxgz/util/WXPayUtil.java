@@ -26,7 +26,7 @@ public class WXPayUtil {
   }
  
   //map转xml 加上签名信息
-  public static String map2Xml(Map<String, Object> map) throws UnsupportedEncodingException {
+  public static String map2Xml(Map<String, Object> map,String api_key) throws UnsupportedEncodingException {
     StringBuffer sb = new StringBuffer();
     StringBuilder sb2 = new StringBuilder();
     sb2.append("<xml>");
@@ -41,7 +41,9 @@ public class WXPayUtil {
       sb2.append(map.get(key));
       sb2.append("</" + key + ">");
     }
-    sb.append(System.getenv("signKey"));
+  //  sb.append(System.getenv("signKey"));
+    sb.append("key="+api_key);
+    
     String sign = Md5Utils.hash(sb.toString()).toUpperCase();//MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
     sb2.append("<sign>");
     sb2.append(sign);
@@ -52,7 +54,7 @@ public class WXPayUtil {
  
   //解析微信返回return_code SUCCESS或FILE
   //根据微信返回resultXml再次生成签名
-  public static String getSign(Map<String, Object> map) {
+  public static String getSign(Map<String, Object> map,String api_key) {
     StringBuffer sb = new StringBuffer();
     for (String key : map.keySet()) {
       sb.append(key);
@@ -60,7 +62,7 @@ public class WXPayUtil {
       sb.append(map.get(key));
       sb.append('&');
     }
-    sb.append(System.getenv("signKey"));
+    sb.append("key="+api_key);
     System.out.println("第二次签名内容:" + Md5Utils.hash(sb.toString()).toUpperCase());
     
     
