@@ -209,14 +209,18 @@ public class AccountController {
                     if(CollectionUtils.isNotEmpty(list)){
                     	logger.info("openId已经存在，不需要插入");
                     	 account = list.get(0);
+                    	 redisUserData.setRoleIdentity(account.getRoleType()+"");
+                    	 redisUserData.setRoleName((account.getRoleType() == null || account.getRoleType() == 0)?"普通用户":"店长");
                     }else{
                     	//创建授权用户
-                    	 account = new Account();
+                    	account = new Account();
                     	account.setOpenid(openId);
                     	account.setId(StdRandom.getUUID());
                     	account.setStatus(0);
                     	account.setCreateTime(new Date());
                     	accountService.insertAccounts(account);
+                    	redisUserData.setRoleIdentity("0");
+                    	redisUserData.setRoleName("普通用户");
                     }
                     redisUserData.setAccessToken(accessToken);
                     BeanUtils.copyProperties(account, redisUserData);

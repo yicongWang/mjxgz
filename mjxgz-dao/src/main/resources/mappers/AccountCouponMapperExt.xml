@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.AccountCouponMapperExt">
-  <select id="findAccountCouponList" resultType="com.zhiyi.mjxgz.vo.AccountCouponInfoVO" parameterType="map">
+  <select id="findAccountCouponList" resultType="com.zhiyi.mjxgz.dto.AccountCouponInfoDTO" parameterType="map">
   SELECT 
 	bc.`coupon_img` AS couponImg,
 	bc.`coupon_name` AS couponName,
@@ -22,10 +22,32 @@
 	<if test="accountId!=null and accountId!=''">
         and ac.`account_id` =${accountId}
     </if>
-    <if test="status!=null and status!=''">
+    <if test="status!=null">
         and ac.`status` =${status}
     </if>
-    
+     <if test="couponCode!=null and couponCode!=''">
+        and ac.`coupon_code` =${couponCode}
+    </if>
     ORDER BY ac.`create_time` DESC
   </select>
+  
+  	<select id="findVerificateCouponList" resultType="com.zhiyi.mjxgz.dto.VerificateCouponDTO" parameterType="map">
+	  	SELECT 
+		bc.`coupon_img` AS couponImg,
+		bc.`coupon_name` AS couponName,
+		bc.`coupon_title` AS couponTitle,
+		ac.`coupon_code`  AS couponCode,
+		ac.`account_id` AS accountId,
+		ac.`business_id` AS businessId,
+		ac.`coupon_id` AS couponId,
+		ac.verificate_time AS verificateTime,
+		ac.verificate_shop_id AS shopId,
+		a.`nick_name` AS nickName
+		FROM `account_coupon` ac
+		LEFT JOIN `business_coupon` bc ON ac.`coupon_id` = bc.`id`
+		LEFT JOIN `account` a ON a.`id` = ac.`account_id`
+		WHERE  ac.`verificate_shop_id` = ${shopId}
+		ORDER BY ac.`verificate_time` DESC
+  	</select>
+  
 </mapper>

@@ -6,18 +6,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhiyi.mjxgz.common.response.CommonResponse;
+import com.zhiyi.mjxgz.common.response.PageResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
 import com.zhiyi.mjxgz.controller.common.AccessRequired;
 import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
+import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.service.AccountCouponService;
-import com.zhiyi.mjxgz.util.DateUtil;
+import com.zhiyi.mjxgz.vo.CouponVO;
+import com.zhiyi.mjxgz.vo.VerificateCouponInfoVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,7 +60,7 @@ public class CouponController {
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");
-            logger.error("----goodsBanner---error:"+e.getMessage(),e);
+            logger.error("----findAccountCouponList---error:"+e.getMessage(),e);
         }
         return commonResponse;
     }
@@ -71,7 +75,7 @@ public class CouponController {
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");
-            logger.error("----goodsBanner---error:"+e.getMessage(),e);
+            logger.error("----removeAccountCoupon---error:"+e.getMessage(),e);
         }
         return commonResponse;
     }
@@ -97,9 +101,59 @@ public class CouponController {
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");
-            logger.error("----goodsBanner---error:"+e.getMessage(),e);
+            logger.error("----takeCoupon---error:"+e.getMessage(),e);
         }
         return commonResponse;
+    }
+    
+    @ApiOperation(value = "核销用户商品券")
+    @RequestMapping(value = "/makeUseCoupon", method = RequestMethod.POST)
+    public CommonResponse makeUseCoupon(@RequestBody VerificateCouponInfoVO verificateCouponInfoVO,@CurrentRedisUserData RedisUserData redisUserData) {
+        CommonResponse commonResponse = new CommonResponse();
+        try {
+        		accountCouponService.makeUseCoupon(verificateCouponInfoVO,redisUserData.getId());
+        		commonResponse.setCode(ResponseCode.SUCCESS);
+        		commonResponse.setMsg("核销成功");
+        } catch (Exception e) {
+            commonResponse.setCode(ResponseCode.SERVER_ERROR);
+            commonResponse.setMsg("请求数据异常,请稍后");
+            logger.error("----makeUseCoupon---error:"+e.getMessage(),e);
+        }
+        return commonResponse;
+    }
+    
+    @ApiOperation(value = "通过用户券码获取券的信息")
+    @RequestMapping(value = "/findCouponInfoByAccountCouponCode", method = RequestMethod.POST)
+    public CommonResponse findCouponInfoByAccountCouponCode(@RequestBody CouponVO couponVO,@CurrentRedisUserData RedisUserData redisUserData) {
+        CommonResponse commonResponse = new CommonResponse();
+        try {
+        		commonResponse.setData(accountCouponService.findCouponInfoByAccountCouponCode(couponVO));
+        		commonResponse.setCode(ResponseCode.SUCCESS);
+        		commonResponse.setMsg("success");
+        } catch (Exception e) {
+            commonResponse.setCode(ResponseCode.SERVER_ERROR);
+            commonResponse.setMsg("请求数据异常,请稍后");
+            logger.error("----findCouponInfoByAccountCouponCode---error:"+e.getMessage(),e);
+        }
+        return commonResponse;
+    }
+    
+    @ApiOperation(value = "店铺分页获取核销记录",response=GoodsDTO.class )
+    @RequestMapping(value = "/findVerificateCouponPage/{shopId}", method = RequestMethod.GET)
+    public PageResponse findVerificateCouponPage(@ApiParam(value="店铺ID") @RequestParam(name="shopId") Long shopId
+ 		   ,@RequestParam(name="pageNum",required =false) Integer pageNum ,@RequestParam(name="pageSize",required =false) Integer pageSize) throws Exception{
+ 	   
+ 	   if(pageNum == null){
+ 		   pageNum = 1;
+ 	   }
+ 	   
+ 	   if(pageSize == null){
+ 		   pageSize = 20;
+ 	   }
+ 	   
+        PageResponse response = new PageResponse(ResponseCode.SUCCESS, "OK");
+        response.setData(accountCouponService.findVerificateCouponPage(shopId, pageNum, pageSize));
+    	return response;
     }
     
 }

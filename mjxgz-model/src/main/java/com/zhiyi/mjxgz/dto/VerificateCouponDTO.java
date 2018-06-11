@@ -1,8 +1,11 @@
-package com.zhiyi.mjxgz.vo;
+package com.zhiyi.mjxgz.dto;
+
+import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class AccountCouponInfoVO{
+public class VerificateCouponDTO{
+	
 	@ApiModelProperty(value ="券图片")
 	private String couponImg;
 	@ApiModelProperty(value ="名称")
@@ -15,16 +18,11 @@ public class AccountCouponInfoVO{
 	private String accountId;
 	@ApiModelProperty(value ="商家ID")
 	private String businessId;
-	@ApiModelProperty(value ="状态-1：过期 0：未使用 1:已使用")
-	private String status;
-	@ApiModelProperty(value ="券id")
-	private String couponId;
-	@ApiModelProperty(value ="状态名称")
-	private String statusName;
-	@ApiModelProperty(value ="券使用开始日期")
-	private String startTime;
-	@ApiModelProperty(value ="券使用截止日期")
-	private String endTime;
+
+	@ApiModelProperty(value ="核销日期")
+	private Date verificateTime;
+	@ApiModelProperty(value ="核销店铺ID")
+	private String shopId;
 	public String getCouponImg() {
 		return couponImg;
 	}
@@ -61,35 +59,17 @@ public class AccountCouponInfoVO{
 	public void setBusinessId(String businessId) {
 		this.businessId = businessId;
 	}
-	public String getStatus() {
-		return status;
+	public Date getVerificateTime() {
+		return verificateTime;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setVerificateTime(Date verificateTime) {
+		this.verificateTime = verificateTime;
 	}
-	public String getCouponId() {
-		return couponId;
+	public String getShopId() {
+		return shopId;
 	}
-	public void setCouponId(String couponId) {
-		this.couponId = couponId;
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
-	public String getStatusName() {
-		return statusName;
-	}
-	public void setStatusName(String statusName) {
-		this.statusName = statusName;
-	}
-	public String getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-	
+
 }

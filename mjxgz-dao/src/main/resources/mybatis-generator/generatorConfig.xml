@@ -51,8 +51,8 @@
 		
 		<!-- 账户信息表 -->
         <table tableName="account" domainObjectName="Account" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="false" />
-            <generatedKey column="id" sqlStatement="Mysql" identity="false" />
+           <!--  <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="Mysql" identity="false" /> -->
         </table>
 			
        
@@ -174,8 +174,8 @@
         </table>
         
           <table tableName="vip_order" domainObjectName="VipOrder" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="false" />
-            <generatedKey column="order_number" sqlStatement="Mysql" identity="flase" />
+        <!--     <property name="useActualColumnNames" value="false" />
+            <generatedKey column="order_number" sqlStatement="Mysql" identity="flase" /> -->
         </table>
          
        

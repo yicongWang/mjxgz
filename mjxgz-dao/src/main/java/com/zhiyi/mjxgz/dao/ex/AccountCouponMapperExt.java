@@ -6,14 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.zhiyi.mjxgz.dao.AccountCouponMapper;
-import com.zhiyi.mjxgz.vo.AccountCouponInfoVO;;
-
-/**
- * 极光推送关联账户
- * @author wyc
- *
- */
-@Mapper
+import com.zhiyi.mjxgz.dto.AccountCouponInfoDTO;
+import com.zhiyi.mjxgz.dto.VerificateCouponDTO;@Mapper
 public interface AccountCouponMapperExt  extends AccountCouponMapper{
 	
 	/**
@@ -21,5 +15,12 @@ public interface AccountCouponMapperExt  extends AccountCouponMapper{
 	 * @param accountId
 	 * @return
 	 */
-	List<AccountCouponInfoVO> findAccountCouponList(Map<String, Object> map);
+	List<AccountCouponInfoDTO> findAccountCouponList(Map<String, Object> map);
+	
+	/**
+	 * 获取店铺核销记录
+	 * @param shopId
+	 * @return
+	 */
+	List<VerificateCouponDTO> findVerificateCouponList(Long shopId);
 }

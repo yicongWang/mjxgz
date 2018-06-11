@@ -5,18 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zhiyi.mjxgz.common.exception.BizException;
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
 import com.zhiyi.mjxgz.dao.ex.AccountCouponMapperExt;
 import com.zhiyi.mjxgz.dao.ex.BusinessCouponMapperExt;
+import com.zhiyi.mjxgz.dto.AccountCouponInfoDTO;
+import com.zhiyi.mjxgz.dto.VerificateCouponDTO;
 import com.zhiyi.mjxgz.model.AccountCoupon;
+import com.zhiyi.mjxgz.model.AccountCouponExample;
 import com.zhiyi.mjxgz.model.BusinessCoupon;
 import com.zhiyi.mjxgz.service.AccountCouponService;
 import com.zhiyi.mjxgz.util.DateUtil;
 import com.zhiyi.mjxgz.util.RandomStr;
-import com.zhiyi.mjxgz.vo.AccountCouponInfoVO;
+import com.zhiyi.mjxgz.vo.CouponVO;
+import com.zhiyi.mjxgz.vo.VerificateCouponInfoVO;
 
 /**
  * 用户券
@@ -31,7 +40,7 @@ public class AccountCouponServiceImpl implements AccountCouponService {
 	private BusinessCouponMapperExt businessCouponMapperExt;
 
 	@Override
-	public  List<AccountCouponInfoVO> findAccountCouponList(String accountId, Integer status) {
+	public  List<AccountCouponInfoDTO> findAccountCouponList(String accountId, Integer status) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("accountId", accountId);
 		map.put("status", status);
@@ -68,6 +77,57 @@ public class AccountCouponServiceImpl implements AccountCouponService {
 		}else{
 			throw new DataNotExistsException("该券不存在");
 		}
+	}
+
+	@Override
+	public void makeUseCoupon(VerificateCouponInfoVO verificateCouponInfoVO, String accountId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("couponCode", verificateCouponInfoVO.getCouponCode());
+		List<AccountCouponInfoDTO> list = accountCouponMapperExt.findAccountCouponList(map);
+		if(CollectionUtils.isNotEmpty(list)){
+			AccountCouponInfoDTO accountCouponInfoVO = list.get(0);
+			if(StringUtils.equals("1", accountCouponInfoVO.getStatus())){
+				throw new BizException("该券已被使用");
+			}else if(StringUtils.equals("-1", accountCouponInfoVO.getStatus())){
+				throw new BizException("该券已过期");
+			}
+			AccountCoupon record = new AccountCoupon();
+			record.setStatus(1);
+			record.setVerificateTime(new Date());
+			record.setVerificateShopId(Long.valueOf(verificateCouponInfoVO.getShopId()));
+			AccountCouponExample example = new AccountCouponExample();
+			example.createCriteria().andCouponCodeEqualTo(verificateCouponInfoVO.getCouponCode());
+			accountCouponMapperExt.updateByExampleSelective(record, example);
+		}else{
+			throw new BizException("该券不存在");
+		}
+	}
+
+	@Override
+	public AccountCouponInfoDTO findCouponInfoByAccountCouponCode(CouponVO couponVO) {
+		AccountCouponInfoDTO accountCouponInfoVO = null;
+		Map<String, Object> map = new HashMap<>();
+		map.put("couponCode", couponVO.getCouponCode());
+		List<AccountCouponInfoDTO> list = accountCouponMapperExt.findAccountCouponList(map);
+		if(CollectionUtils.isNotEmpty(list)){
+			accountCouponInfoVO = list.get(0);
+			if(!StringUtils.equals(accountCouponInfoVO.getBusinessId(), couponVO.getBusinessId())){
+				throw new BizException("本店不存在该券");
+			}
+		}else{
+			throw new BizException("该券不存在");
+		}
+		return accountCouponInfoVO;
+	}
+
+	@Override
+	public PageInfo findVerificateCouponPage(Long shopId, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(findVerificateCouponList(shopId));
+	}
+
+	private List<VerificateCouponDTO> findVerificateCouponList(Long shopId) {
+		return accountCouponMapperExt.findVerificateCouponList(shopId);
 	}
 	
 }

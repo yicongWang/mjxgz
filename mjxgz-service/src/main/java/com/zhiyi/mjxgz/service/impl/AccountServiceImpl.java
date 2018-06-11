@@ -56,7 +56,6 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void insertAccounts(Account account) {
 		accountMapperExt.insert(account);
-		
 	}
 	@Override
 	public void updateAccount(UserInfoVO userInfoVO,String openid) {
@@ -77,10 +76,6 @@ public class AccountServiceImpl implements AccountService {
 		   }catch(Exception e){
 			   logger.error("更新用户信息缓存异常："+e.getMessage(),e);
 		   }
-		 
 	}
-   
-   
-
 	
 }

@@ -754,6 +754,126 @@ public class AccountCouponExample {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
+
+        public Criteria andVerificateTimeIsNull() {
+            addCriterion("verificate_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeIsNotNull() {
+            addCriterion("verificate_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeEqualTo(Date value) {
+            addCriterion("verificate_time =", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeNotEqualTo(Date value) {
+            addCriterion("verificate_time <>", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeGreaterThan(Date value) {
+            addCriterion("verificate_time >", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("verificate_time >=", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeLessThan(Date value) {
+            addCriterion("verificate_time <", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("verificate_time <=", value, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeIn(List<Date> values) {
+            addCriterion("verificate_time in", values, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeNotIn(List<Date> values) {
+            addCriterion("verificate_time not in", values, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeBetween(Date value1, Date value2) {
+            addCriterion("verificate_time between", value1, value2, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("verificate_time not between", value1, value2, "verificateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdIsNull() {
+            addCriterion("verificate_shop_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdIsNotNull() {
+            addCriterion("verificate_shop_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdEqualTo(Long value) {
+            addCriterion("verificate_shop_id =", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdNotEqualTo(Long value) {
+            addCriterion("verificate_shop_id <>", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdGreaterThan(Long value) {
+            addCriterion("verificate_shop_id >", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("verificate_shop_id >=", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdLessThan(Long value) {
+            addCriterion("verificate_shop_id <", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdLessThanOrEqualTo(Long value) {
+            addCriterion("verificate_shop_id <=", value, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdIn(List<Long> values) {
+            addCriterion("verificate_shop_id in", values, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdNotIn(List<Long> values) {
+            addCriterion("verificate_shop_id not in", values, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdBetween(Long value1, Long value2) {
+            addCriterion("verificate_shop_id between", value1, value2, "verificateShopId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVerificateShopIdNotBetween(Long value1, Long value2) {
+            addCriterion("verificate_shop_id not between", value1, value2, "verificateShopId");
+            return (Criteria) this;
+        }
     }
 
     /**
