@@ -68,7 +68,17 @@ public class RedisUserData implements Serializable {
      */
     private String terminalType;
 
-    private String openid;
+    private String vipCode;
+    
+    public String getVipCode() {
+		return vipCode;
+	}
+
+	public void setVipCode(String vipCode) {
+		this.vipCode = vipCode;
+	}
+
+	private String openid;
     private String nickName;
     //会员到期时间
     private Date expireTime;

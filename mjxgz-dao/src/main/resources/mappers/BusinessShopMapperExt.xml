@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.BusinessShopMapperExt">
-	
+	<select id ="getShopInfoByAccountId"  resultType="com.zhiyi.mjxgz.dto.ShopInfoDTO" parameterType="map">
+	SELECT 
+	b.logo,
+	bs.id AS shopId,
+	bs.`shop_name` shopName,
+	bs.`address`,
+	bs.`province_name` provinceName ,
+	bs.`city_name` cityName,
+	bs.`area_name` areaName,
+	bs.`business_start` businessStart,
+	bs.`business_end` businessEnd,
+	bs.`business_id` businessId
+	FROM business_shop bs
+	LEFT JOIN
+	business b ON bs.business_id = b.id
+	WHERE bs.`account_id` = #{accountId}
+	</select>
 </mapper>
