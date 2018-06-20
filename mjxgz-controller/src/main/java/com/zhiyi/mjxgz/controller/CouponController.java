@@ -20,6 +20,7 @@ import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
 import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.service.AccountCouponService;
+import com.zhiyi.mjxgz.util.DateUtil;
 import com.zhiyi.mjxgz.vo.CouponVO;
 import com.zhiyi.mjxgz.vo.VerificateCouponInfoVO;
 
@@ -89,7 +90,7 @@ public class CouponController {
         	if(null == redisUserData.getExpireTime()){
         		commonResponse.setMsg("您还未开通会员");
         		commonResponse.setCode(ResponseCode.VIP_EXPIR);
-        	}else if(redisUserData.getExpireTime().getTime() < time){
+        	}else if(DateUtil.strToDate(redisUserData.getExpireTime(), DateUtil.DATETIME_DEFAULT_FORMAT).getTime() < time){
         		commonResponse.setCode(ResponseCode.VIP_EXPIR);
         		commonResponse.setMsg("您的会员已过期,请续费");
         	}else{

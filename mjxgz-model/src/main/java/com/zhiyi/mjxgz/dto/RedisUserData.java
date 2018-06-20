@@ -81,13 +81,13 @@ public class RedisUserData implements Serializable {
 	private String openid;
     private String nickName;
     //会员到期时间
-    private Date expireTime;
+    private String expireTime;
     
-    public Date getExpireTime() {
+    public String getExpireTime() {
 		return expireTime;
 	}
 
-	public void setExpireTime(Date expireTime) {
+	public void setExpireTime(String expireTime) {
 		this.expireTime = expireTime;
 	}
 

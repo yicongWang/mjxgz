@@ -15,6 +15,7 @@ import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.model.Account;
 import com.zhiyi.mjxgz.model.AccountExample;
 import com.zhiyi.mjxgz.service.AccountService;
+import com.zhiyi.mjxgz.util.DateUtil;
 import com.zhiyi.mjxgz.util.MailUtill;
 import com.zhiyi.mjxgz.util.RedisUtil;
 import com.zhiyi.mjxgz.util.UserSettings;
@@ -71,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
 			  RedisUserData redisUserData = (RedisUserData) redisUtil.get(accessToken);
 			  redisUserData.setAvatarUrl(userInfoVO.getAvatarUrl());
 			  redisUserData.setNickName(userInfoVO.getNickName());
-			  Long invalid = Long.parseLong(userSettings.getSessionInvalid()) * 60;//要小于30天session_key
+			  Long invalid = Long.parseLong(userSettings.getSessionInvalid());//要小于30天session_key
 			  redisUtil.set(accessToken, redisUserData, invalid);
 		   }catch(Exception e){
 			   logger.error("更新用户信息缓存异常："+e.getMessage(),e);

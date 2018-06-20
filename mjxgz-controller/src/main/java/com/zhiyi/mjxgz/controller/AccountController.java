@@ -24,6 +24,7 @@ import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
 import com.zhiyi.mjxgz.controller.common.AccessRequired;
 import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
+import com.zhiyi.mjxgz.dao.ex.AccountMapperExt;
 import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.model.Account;
 import com.zhiyi.mjxgz.model.LoginLog;
@@ -60,7 +61,8 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-
+	@Autowired
+	private AccountMapperExt accountMapperExt;
 	@Autowired
 	private LoginLogService loginLogService;
 	@Autowired
@@ -182,13 +184,13 @@ public class AccountController {
 					System.out.println("openId==" + openId);
 					Date currentDate = DateUtil.now();
 					RedisUserData redisUserData = new RedisUserData();
-					Long invalid = Long.parseLong(userSettings.getSessionInvalid()) * 60;// 要小于30天session_key
+					Long invalid = Long.parseLong(userSettings.getSessionInvalid());// 要小于30天session_key
 					// String accessToken =
 					// ServiceUtil.CreateAccessToken(obj.get("session_key").toString(),
 					// String.valueOf(System.currentTimeMillis()));
 					String accessToken = ServiceUtil.CreateAccessToken(obj.get("session_key").toString(),
 							obj.get("openid").toString());
-					redisUtil.set(openId, accessToken);// 记录openId的TOKEN
+					redisUtil.set(openId, accessToken,invalid);// 记录openId的TOKEN
 					Account searchAccount = new Account();
 					searchAccount.setOpenid(openId);
 					List<Account> list = accountService.findAccounts(searchAccount);
@@ -200,6 +202,9 @@ public class AccountController {
 						redisUserData.setRoleIdentity(account.getRoleType() + "");
 						redisUserData.setRoleName(
 								(account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
+						if(null != account.getExpireTime()){
+							redisUserData.setExpireTime(DateUtil.dateToStr(account.getExpireTime(), "yyyy-MM-dd HH:mm:ss"));
+						}
 					} else {
 						// 创建授权用户
 						account = new Account();
@@ -253,6 +258,15 @@ public class AccountController {
 	public CommonResponse findUserInfo(@CurrentRedisUserData RedisUserData redisUserData, @RequestHeader String access_token) {
 		CommonResponse commonResponse = new CommonResponse();
 		try {
+			Account account = accountMapperExt.selectByPrimaryKey(redisUserData.getId());
+			if(null != account.getExpireTime()){
+				redisUserData.setExpireTime(DateUtil.dateToStr(account.getExpireTime(), "yyyy-MM-dd HH:mm:ss"));
+			}
+			
+			redisUserData.setVipCode(account.getVipCode());
+			redisUserData.setRoleIdentity(account.getRoleType() + "");
+			redisUserData.setRoleName((account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
+			
 			commonResponse.setData(redisUserData);
 			commonResponse.setCode(ResponseCode.SUCCESS);
 			commonResponse.setMsg("success");
