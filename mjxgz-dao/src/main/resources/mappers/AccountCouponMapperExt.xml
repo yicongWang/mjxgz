@@ -20,13 +20,13 @@
 	ON ac.`coupon_id` = bc.`id`
 	WHERE ac.`status` &lt;&gt; 2
 	<if test="accountId!=null and accountId!=''">
-        and ac.`account_id` =${accountId}
+        and ac.`account_id` = #{accountId}
     </if>
     <if test="status!=null">
-        and ac.`status` =${status}
+        and ac.`status` = #{status}
     </if>
      <if test="couponCode!=null and couponCode!=''">
-        and ac.`coupon_code` =${couponCode}
+        and ac.`coupon_code` = #{couponCode}
     </if>
     ORDER BY ac.`create_time` DESC
   </select>
@@ -46,7 +46,7 @@
 		FROM `account_coupon` ac
 		LEFT JOIN `business_coupon` bc ON ac.`coupon_id` = bc.`id`
 		LEFT JOIN `account` a ON a.`id` = ac.`account_id`
-		WHERE  ac.`verificate_shop_id` = ${shopId}
+		WHERE  ac.`verificate_shop_id` = #{shopId}
 		ORDER BY ac.`verificate_time` DESC
   	</select>
   
