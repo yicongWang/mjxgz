@@ -26,6 +26,7 @@ import com.zhiyi.mjxgz.controller.common.AccessRequired;
 import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
 import com.zhiyi.mjxgz.dao.ex.AccountMapperExt;
 import com.zhiyi.mjxgz.dto.RedisUserData;
+import com.zhiyi.mjxgz.dto.ShopInfoDTO;
 import com.zhiyi.mjxgz.model.Account;
 import com.zhiyi.mjxgz.model.LoginLog;
 import com.zhiyi.mjxgz.service.AccountCouponService;
@@ -200,11 +201,21 @@ public class AccountController {
 						account = list.get(0);
 						redisUserData.setVipCode(account.getVipCode());
 						redisUserData.setRoleIdentity(account.getRoleType() + "");
-						redisUserData.setRoleName(
-								(account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
+						if(account.getRoleType() == null || account.getRoleType() == 0){
+							redisUserData.setRoleName("普通用户");
+						}else{
+							redisUserData.setRoleName( "店长");
+							ShopInfoDTO shopInfoDTO = businessShopService.getShopInfo(account.getId());
+							if(null != shopInfoDTO){
+								redisUserData.setShopId(shopInfoDTO.getShopId());
+							}
+						}
+						//redisUserData.setRoleName((account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
+						
 						if(null != account.getExpireTime()){
 							redisUserData.setExpireTime(DateUtil.dateToStr(account.getExpireTime(), "yyyy-MM-dd HH:mm:ss"));
 						}
+						
 					} else {
 						// 创建授权用户
 						account = new Account();
@@ -265,8 +276,16 @@ public class AccountController {
 			
 			redisUserData.setVipCode(account.getVipCode());
 			redisUserData.setRoleIdentity(account.getRoleType() + "");
-			redisUserData.setRoleName((account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
-			
+			if(account.getRoleType() == null || account.getRoleType() == 0){
+				redisUserData.setRoleName("普通用户");
+			}else{
+				redisUserData.setRoleName( "店长");
+				ShopInfoDTO shopInfoDTO = businessShopService.getShopInfo(account.getId());
+				if(null != shopInfoDTO){
+					redisUserData.setShopId(shopInfoDTO.getShopId());
+				}
+			}
+			//redisUserData.setRoleName((account.getRoleType() == null || account.getRoleType() == 0) ? "普通用户" : "店长");
 			commonResponse.setData(redisUserData);
 			commonResponse.setCode(ResponseCode.SUCCESS);
 			commonResponse.setMsg("success");
@@ -317,7 +336,7 @@ public class AccountController {
 		return commonResponse;
 	}
 
-	@ApiOperation(value = "獲取店鋪信息", notes = "獲取店鋪信息")
+	@ApiOperation(value = "獲取店鋪信息", notes = "獲取店鋪信息",response = ShopInfoDTO.class)
 	@RequestMapping(value = "/getShopInfo", method = RequestMethod.POST)
 	public CommonResponse getShopInfo(@CurrentRedisUserData RedisUserData redisUserData, @RequestHeader String access_token) {
 		CommonResponse commonResponse = new CommonResponse();

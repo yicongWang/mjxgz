@@ -78,11 +78,21 @@ public class RedisUserData implements Serializable {
 		this.vipCode = vipCode;
 	}
 
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+
 	private String openid;
     private String nickName;
     //会员到期时间
     private String expireTime;
     
+    //店铺Id
+    private String shopId;
     public String getExpireTime() {
 		return expireTime;
 	}
