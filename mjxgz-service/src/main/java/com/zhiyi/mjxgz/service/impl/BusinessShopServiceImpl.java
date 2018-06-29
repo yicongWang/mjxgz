@@ -1,5 +1,6 @@
 package com.zhiyi.mjxgz.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,12 @@ public class BusinessShopServiceImpl implements BusinessShopService {
 			throw new BizException("店铺不存在");
 		}
 		return list.get(0);
+	}
+
+	@Override
+	public void saveBusinessShop(BusinessShop businessShop) {
+		businessShop.setCreateTime(new Date());
+		businessShopMapperExt.insertSelective(businessShop);
 	}
 	
 }

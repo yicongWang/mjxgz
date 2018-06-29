@@ -1,5 +1,6 @@
 package com.zhiyi.mjxgz.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiyi.mjxgz.dao.ex.BusinessMapperExt;
+import com.zhiyi.mjxgz.model.Business;
 import com.zhiyi.mjxgz.service.BusinessService;
 import com.zhiyi.mjxgz.vo.BusinessInfoVO;
 
@@ -52,6 +54,12 @@ public class BusinessServiceImpl implements BusinessService {
 	public PageInfo<BusinessInfoVO> findusinessInfoPage(String businessName, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(findBusinessInfoList(businessName));
+	}
+
+	@Override
+	public void saveBusiness(Business business) {
+		business.setCreateTime(new Date());
+		businessMapperExt.insertSelective(business);
 	}
 	
 }

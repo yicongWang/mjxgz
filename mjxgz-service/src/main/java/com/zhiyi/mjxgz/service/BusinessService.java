@@ -3,6 +3,7 @@ package com.zhiyi.mjxgz.service;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.zhiyi.mjxgz.model.Business;
 import com.zhiyi.mjxgz.vo.BusinessInfoVO;
 
 /**
@@ -31,4 +32,6 @@ public interface BusinessService {
 	 * @return
 	 */
 	PageInfo<BusinessInfoVO> findusinessInfoPage(String businessName, Integer pageNum, Integer pageSize);
+	
+	void saveBusiness(Business business);
 }

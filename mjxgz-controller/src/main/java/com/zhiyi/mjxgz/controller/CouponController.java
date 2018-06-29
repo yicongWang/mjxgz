@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class CouponController {
     
     @ApiOperation(value = "领取商品券")
     @RequestMapping(value = "/takeCoupon", method = RequestMethod.GET)
-    public CommonResponse takeCoupon(@ApiParam(name="couponId",value="商品券ID")Long couponId,@CurrentRedisUserData RedisUserData redisUserData) {
+    public CommonResponse takeCoupon(@ApiParam(name="couponId",value="商品券ID")@RequestParam(name = "couponId") Long couponId, @RequestHeader String access_token,@CurrentRedisUserData RedisUserData redisUserData) {
         CommonResponse commonResponse = new CommonResponse();
         try {
         	long time = new Date().getTime();

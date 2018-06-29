@@ -1,9 +1,14 @@
 package com.zhiyi.mjxgz.controller.common;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -12,17 +17,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.zhiyi.mjxgz.common.exception.BizException;
 import com.zhiyi.mjxgz.common.exception.DataAlreadyExistsException;
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
 import com.zhiyi.mjxgz.common.exception.ParametersException;
 import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionController {
@@ -61,6 +61,20 @@ public class GlobalExceptionController {
         return new CommonResponse(ResponseCode.SOURCE_EXIST_ERROR, e.getMessage());
     }
 
+    /**
+     * 业务异常
+     * @param request
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(BizException.class)
+    @ResponseBody
+    public CommonResponse handleBizException(HttpServletRequest request,Exception e){
+        e.printStackTrace();
+        handleLog(request, e);
+        return new CommonResponse(ResponseCode.PARAMETER_ERROR, e.getMessage());
+    }
+    
     /**
      * 2017/2/10
      * 处理资源不存在

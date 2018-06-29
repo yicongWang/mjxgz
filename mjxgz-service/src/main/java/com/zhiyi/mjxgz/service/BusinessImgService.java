@@ -16,5 +16,7 @@ public interface BusinessImgService {
 	 * @return
 	 */
 	 List<BusinessImg> findBusinessImgList(Long businessId);
+
+	void saveBusinessImg(BusinessImg businessImg);
 	
 }

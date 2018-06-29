@@ -1,7 +1,5 @@
    package com.zhiyi.mjxgz.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
 import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.PageResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
-import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.service.BusinessImgService;
 import com.zhiyi.mjxgz.service.BusinessService;
 import com.zhiyi.mjxgz.service.BusinessShopService;
@@ -128,5 +124,6 @@ public class BusinessController {
         response.setData(businessService.findusinessInfoPage(businessName, pageNum, pageSize));
     	return response;
     }
+    
     
 }

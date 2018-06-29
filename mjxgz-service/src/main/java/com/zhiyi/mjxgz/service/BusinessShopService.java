@@ -3,6 +3,7 @@ package com.zhiyi.mjxgz.service;
 import java.util.List;
 
 import com.zhiyi.mjxgz.dto.ShopInfoDTO;
+import com.zhiyi.mjxgz.model.Business;
 import com.zhiyi.mjxgz.model.BusinessShop;
 
 /**
@@ -15,4 +16,6 @@ public interface BusinessShopService {
 	List<BusinessShop> findShopInfoList(Long businessId);
 	
 	ShopInfoDTO getShopInfo(String accountId);
+
+	void saveBusinessShop(BusinessShop businessShop);
 }

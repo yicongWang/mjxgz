@@ -1,5 +1,6 @@
 package com.zhiyi.mjxgz.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,6 +33,12 @@ public class BusinessImgServiceImpl implements BusinessImgService {
 		Criteria criteria = example.createCriteria();
 		criteria.andBusinessIdEqualTo(businessId);
 		return businessImgMapperExt.selectByExample(example);
+	}
+
+	@Override
+	public void saveBusinessImg(BusinessImg businessImg) {
+		businessImg.setCreateTime(new Date());
+		businessImgMapperExt.insert(businessImg);
 	}
 
 }

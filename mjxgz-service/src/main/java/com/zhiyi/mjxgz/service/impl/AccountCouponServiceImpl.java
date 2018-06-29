@@ -74,6 +74,7 @@ public class AccountCouponServiceImpl implements AccountCouponService {
 				record.setEndTime(DateUtil.addDay(businessCoupon.getActiveDay().intValue()));
 			}
 			record.setCouponCode("C"+DateUtil.dateToStr(new Date(), "yyyyMMddHHmmss")+RandomStr.randomStr(5));
+			accountCouponMapperExt.insert(record);
 		}else{
 			throw new DataNotExistsException("该券不存在");
 		}

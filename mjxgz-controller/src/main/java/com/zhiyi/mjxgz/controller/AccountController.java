@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -186,12 +187,13 @@ public class AccountController {
 					Date currentDate = DateUtil.now();
 					RedisUserData redisUserData = new RedisUserData();
 					Long invalid = Long.parseLong(userSettings.getSessionInvalid());// 要小于30天session_key
-					// String accessToken =
-					// ServiceUtil.CreateAccessToken(obj.get("session_key").toString(),
-					// String.valueOf(System.currentTimeMillis()));
-					String accessToken = ServiceUtil.CreateAccessToken(obj.get("session_key").toString(),
-							obj.get("openid").toString());
+					String accessToken = (String) redisUtil.get(openId);
+					if(StringUtils.isBlank(accessToken)){
+						accessToken = ServiceUtil.CreateAccessToken(obj.get("session_key").toString(),openId);
+					}
+					
 					redisUtil.set(openId, accessToken,invalid);// 记录openId的TOKEN
+					
 					Account searchAccount = new Account();
 					searchAccount.setOpenid(openId);
 					List<Account> list = accountService.findAccounts(searchAccount);
