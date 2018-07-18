@@ -3,6 +3,8 @@
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.AccountCouponMapperExt">
   <select id="findAccountCouponList" resultType="com.zhiyi.mjxgz.dto.AccountCouponInfoDTO" parameterType="map">
   SELECT 
+    bs.`telphone`,
+  	CONCAT(bs.province_name,bs.city_name,bs.area_name,IFNULL(bs.address,'')) AS address,
 	bc.`coupon_img` AS couponImg,
 	bc.`coupon_name` AS couponName,
 	bc.`coupon_title` AS couponTitle,
@@ -18,6 +20,7 @@
 	FROM `account_coupon` ac
 	LEFT JOIN `business_coupon` bc
 	ON ac.`coupon_id` = bc.`id`
+	LEFT JOIN business_shop bs ON bs.`id` = bc.`shop_id`
 	WHERE ac.`status` &lt;&gt; 2
 	<if test="accountId!=null and accountId!=''">
         and ac.`account_id` = #{accountId}

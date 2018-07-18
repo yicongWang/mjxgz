@@ -3,5 +3,6 @@
 <mapper namespace="com.zhiyi.mjxgz.dao.ex.AccountMapperExt">
 	<update id ="updateAccountVipExpireTime" parameterType="map">
 	   update account set expire_time = ifnull(DATE_ADD(if(expire_time&lt;now(),now(),expire_time), INTERVAL #{days} DAY),DATE_ADD(now(), INTERVAL #{days} DAY) )
+	   where id = #{accountId}
 	</update>
 </mapper>

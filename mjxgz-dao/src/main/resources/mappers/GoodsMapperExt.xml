@@ -18,7 +18,7 @@
          	</if>
 		
             <if test="businessName != null and businessName !=''"> 
-                    and b.`name` like '%#{businessName}%'
+                    and b.`name` like '%${businessName}%'
          	</if>
          	
          	<if test="businessId != null"> 
@@ -29,6 +29,11 @@
          	<if test="excludeGoodsId != null"> 
                     and g.`id` != #{excludeGoodsId}
          	</if>
+         	
+         	<if test="goodsId != null"> 
+                   and g.`id` = #{goodsId}
+        	</if>
+         	
        </trim>
 	</select>
 	
@@ -38,12 +43,16 @@
 		,b.`name` as businessName,
 		b.`special_remind` AS specialRemind,
 		b.`welfare_content` AS welfareContent
-		from goods g 
+		from goods g  
 		left join `business` b on b.`id` = g.`business_id`
 		where g.status = 1
         	<if test="excludeGoodsId != null"> 
-                   and g.`id` != #{goodsId}
+                   and g.`id` != #{excludeGoodsId}
         	</if>
+        	<if test="goodsId != null"> 
+                   and g.`id` = #{goodsId}
+        	</if>
+        	
 	</select>
 	
 	
@@ -57,6 +66,7 @@
 		g.`id` AS goodsId,
 		g.`img_url` as goodsImg,
 		g.`price` as price,
+		g.`old_price` as oldPrice,
 		g.`surplus_quantity` as surplusQuantity,
 		g.`total_quantity` AS totalQuantity,
 		g.`unit`

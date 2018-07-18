@@ -165,8 +165,10 @@ public class VipOrderServiceImpl implements VipOrderService {
 			//金额校验
 			Map<String,Object> map = new HashMap<>();
 			map.put("days", vipMeal.getDay());
+			map.put("accountId", vipOrder.getAccountId());
 			accountMapperExt.updateAccountVipExpireTime(map);
 			AccountVipRecord accountVipRecord = new AccountVipRecord();
+			accountVipRecord.setCreateTime(new Date());
 			accountVipRecord.setAccountId(vipOrder.getAccountId());
 			accountVipRecord.setRemark("续费"+vipMeal.getName()+"VIP会员增加了"+vipMeal.getDay()+"天");
 			accountVipRecord.setType(1);

@@ -1415,6 +1415,66 @@ public class GoodsExample {
             addCriterion("modify_time not between", value1, value2, "modifyTime");
             return (Criteria) this;
         }
+
+        public Criteria andOldPriceIsNull() {
+            addCriterion("old_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceIsNotNull() {
+            addCriterion("old_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceEqualTo(BigDecimal value) {
+            addCriterion("old_price =", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceNotEqualTo(BigDecimal value) {
+            addCriterion("old_price <>", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceGreaterThan(BigDecimal value) {
+            addCriterion("old_price >", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("old_price >=", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceLessThan(BigDecimal value) {
+            addCriterion("old_price <", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("old_price <=", value, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceIn(List<BigDecimal> values) {
+            addCriterion("old_price in", values, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceNotIn(List<BigDecimal> values) {
+            addCriterion("old_price not in", values, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("old_price between", value1, value2, "oldPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andOldPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("old_price not between", value1, value2, "oldPrice");
+            return (Criteria) this;
+        }
     }
 
     /**

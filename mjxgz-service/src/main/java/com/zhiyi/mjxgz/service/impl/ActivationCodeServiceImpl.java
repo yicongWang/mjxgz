@@ -59,10 +59,12 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
 			}
 			Map<String,Object> map = new HashMap<>();
 			map.put("days", activationCode.getDay());
+			map.put("accountId", accountId);
 			accountMapperExt.updateAccountVipExpireTime(map);
 			
 			AccountVipRecord accountVipRecord = new AccountVipRecord();
 			accountVipRecord.setAccountId(accountId);
+			accountVipRecord.setCreateTime(new Date());
 			accountVipRecord.setCode(activeInfoVO.getCode());
 			accountVipRecord.setRemark("使用了激活码"+activeInfoVO.getCode()+"续费"+activationCode.getDay()+"天");
 			accountVipRecord.setType(2);

@@ -23,6 +23,7 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
     <result column="coupon_type" jdbcType="INTEGER" property="couponType" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -97,7 +98,7 @@
     -->
     id, code, `describe`, start_time, end_time, business_id, sort, `status`, coupon_img, 
     coupon_name, coupon_title, active_type, active_day, create_time, modify_time, goods_id, 
-    coupon_type
+    coupon_type, shop_id
   </sql>
   <select id="selectByExample" parameterType="com.zhiyi.mjxgz.model.BusinessCouponExample" resultMap="BaseResultMap">
     <!--
@@ -159,13 +160,13 @@
       `status`, coupon_img, coupon_name, 
       coupon_title, active_type, active_day, 
       create_time, modify_time, goods_id, 
-      coupon_type)
+      coupon_type, shop_id)
     values (#{code,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{businessId,jdbcType=BIGINT}, #{sort,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{couponImg,jdbcType=VARCHAR}, #{couponName,jdbcType=VARCHAR}, 
       #{couponTitle,jdbcType=VARCHAR}, #{activeType,jdbcType=INTEGER}, #{activeDay,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{goodsId,jdbcType=BIGINT}, 
-      #{couponType,jdbcType=INTEGER})
+      #{couponType,jdbcType=INTEGER}, #{shopId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.zhiyi.mjxgz.model.BusinessCoupon">
     <!--
@@ -225,6 +226,9 @@
       <if test="couponType != null">
         coupon_type,
       </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="code != null">
@@ -274,6 +278,9 @@
       </if>
       <if test="couponType != null">
         #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -345,6 +352,9 @@
       <if test="record.couponType != null">
         coupon_type = #{record.couponType,jdbcType=INTEGER},
       </if>
+      <if test="record.shopId != null">
+        shop_id = #{record.shopId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -372,7 +382,8 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       goods_id = #{record.goodsId,jdbcType=BIGINT},
-      coupon_type = #{record.couponType,jdbcType=INTEGER}
+      coupon_type = #{record.couponType,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -432,6 +443,9 @@
       <if test="couponType != null">
         coupon_type = #{couponType,jdbcType=INTEGER},
       </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -456,7 +470,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       goods_id = #{goodsId,jdbcType=BIGINT},
-      coupon_type = #{couponType,jdbcType=INTEGER}
+      coupon_type = #{couponType,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

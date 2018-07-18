@@ -18,6 +18,7 @@ import com.zhiyi.mjxgz.common.response.PageResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
 import com.zhiyi.mjxgz.controller.common.AccessRequired;
 import com.zhiyi.mjxgz.controller.common.CurrentRedisUserData;
+import com.zhiyi.mjxgz.dto.AccountCouponInfoDTO;
 import com.zhiyi.mjxgz.dto.GoodsDTO;
 import com.zhiyi.mjxgz.dto.RedisUserData;
 import com.zhiyi.mjxgz.service.AccountCouponService;
@@ -124,9 +125,9 @@ public class CouponController {
         return commonResponse;
     }
     
-    @ApiOperation(value = "通过用户券码获取券的信息")
+    @ApiOperation(value = "通过用户券码获取券的信息",response = AccountCouponInfoDTO.class)
     @RequestMapping(value = "/findCouponInfoByAccountCouponCode", method = RequestMethod.POST)
-    public CommonResponse findCouponInfoByAccountCouponCode(@RequestBody CouponVO couponVO,@CurrentRedisUserData RedisUserData redisUserData) {
+    public CommonResponse findCouponInfoByAccountCouponCode(@RequestBody CouponVO couponVO, @RequestHeader String access_token,@CurrentRedisUserData RedisUserData redisUserData) {
         CommonResponse commonResponse = new CommonResponse();
         try {
         		commonResponse.setData(accountCouponService.findCouponInfoByAccountCouponCode(couponVO));

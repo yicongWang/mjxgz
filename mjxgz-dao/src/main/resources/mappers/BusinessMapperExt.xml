@@ -21,7 +21,7 @@
         </if>
         
         <if test="businessName != null"> 
-                   and b.`name` like '%#{businessName}%' 
+                   and b.`name` like '%${businessName}%' 
         </if>
 	</select>
 </mapper>

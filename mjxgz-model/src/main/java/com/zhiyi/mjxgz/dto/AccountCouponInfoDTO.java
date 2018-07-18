@@ -25,6 +25,10 @@ public class AccountCouponInfoDTO{
 	private String startTime;
 	@ApiModelProperty(value ="券使用截止日期")
 	private String endTime;
+	@ApiModelProperty(value ="地址")
+	private String address;
+	@ApiModelProperty(value ="联系方式")
+	private String telphone;
 	public String getCouponImg() {
 		return couponImg;
 	}
@@ -90,6 +94,18 @@ public class AccountCouponInfoDTO{
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getTelphone() {
+		return telphone;
+	}
+	public void setTelphone(String telphone) {
+		this.telphone = telphone;
 	}
 	
 }

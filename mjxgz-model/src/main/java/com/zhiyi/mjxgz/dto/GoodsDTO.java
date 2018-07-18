@@ -13,6 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GoodsDTO{
+	public String getOldPrice() {
+		return oldPrice;
+	}
+	public void setOldPrice(String oldPrice) {
+		this.oldPrice = oldPrice;
+	}
 	@JsonSerialize(using = YMDHMSDateSerializer.class)
 	@ApiModelProperty(value ="活动结束日期")
 	private Date activeTimeEnd;
@@ -25,7 +31,7 @@ public class GoodsDTO{
 	private Long categoryId;
 	@ApiModelProperty(value ="商品名称")
 	private String goodsName;
-	@ApiModelProperty(value ="商品标题")
+	@ApiModelProperty(value ="商品简介/标题")
 	private String goodsTitle;
 	@ApiModelProperty(value ="产品Id")
 	private Long goodsId;
@@ -33,6 +39,8 @@ public class GoodsDTO{
 	private String goodsImg;
 	@ApiModelProperty(value ="价格")
 	private String price;
+	@ApiModelProperty(value ="原价")
+	private String oldPrice;
 	@ApiModelProperty(value ="剩余数量")
 	private Long surplusQuantity;
 	@ApiModelProperty(value ="总数量")
