@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zhiyi.mjxgz.common.exception.BizException;
 import com.zhiyi.mjxgz.common.response.CommonResponse;
 import com.zhiyi.mjxgz.common.response.PageResponse;
 import com.zhiyi.mjxgz.common.response.ResponseCode;
@@ -60,6 +61,10 @@ public class CouponController {
         	}
             commonResponse.setCode(ResponseCode.SUCCESS);
             commonResponse.setData(accountCouponService.findAccountCouponList(accountId,status));
+        }catch (BizException e1) {
+            commonResponse.setCode(ResponseCode.PARAMETER_ERROR);
+            commonResponse.setMsg(e1.getMessage());
+            logger.error("----takeCoupon---error:"+e1.getMessage(),e1);
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");
@@ -101,8 +106,13 @@ public class CouponController {
         		commonResponse.setMsg("领取成功");
         	}
            
+        } catch (BizException e1) {
+            commonResponse.setCode(ResponseCode.PARAMETER_ERROR);
+            commonResponse.setMsg(e1.getMessage());
+            logger.error("----takeCoupon---error:"+e1.getMessage(),e1);
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
+            commonResponse.setMsg("请求数据异常,请稍后");
             commonResponse.setMsg("请求数据异常,请稍后");
             logger.error("----takeCoupon---error:"+e.getMessage(),e);
         }
@@ -117,7 +127,11 @@ public class CouponController {
         		accountCouponService.makeUseCoupon(verificateCouponInfoVO,redisUserData.getId());
         		commonResponse.setCode(ResponseCode.SUCCESS);
         		commonResponse.setMsg("核销成功");
-        } catch (Exception e) {
+        } catch (BizException e1) {
+            commonResponse.setCode(ResponseCode.PARAMETER_ERROR);
+            commonResponse.setMsg(e1.getMessage());
+            logger.error("----takeCoupon---error:"+e1.getMessage(),e1);
+        }catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");
             logger.error("----makeUseCoupon---error:"+e.getMessage(),e);
@@ -133,6 +147,10 @@ public class CouponController {
         		commonResponse.setData(accountCouponService.findCouponInfoByAccountCouponCode(couponVO));
         		commonResponse.setCode(ResponseCode.SUCCESS);
         		commonResponse.setMsg("success");
+        }catch (BizException e1) {
+            commonResponse.setCode(ResponseCode.PARAMETER_ERROR);
+            commonResponse.setMsg(e1.getMessage());
+            logger.error("----takeCoupon---error:"+e1.getMessage(),e1);
         } catch (Exception e) {
             commonResponse.setCode(ResponseCode.SERVER_ERROR);
             commonResponse.setMsg("请求数据异常,请稍后");

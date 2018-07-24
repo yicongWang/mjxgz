@@ -22,6 +22,7 @@ import com.zhiyi.mjxgz.dto.AccountCouponInfoDTO;
 import com.zhiyi.mjxgz.dto.VerificateCouponDTO;
 import com.zhiyi.mjxgz.model.AccountCoupon;
 import com.zhiyi.mjxgz.model.AccountCouponExample;
+import com.zhiyi.mjxgz.model.AccountCouponExample.Criteria;
 import com.zhiyi.mjxgz.model.BusinessCoupon;
 import com.zhiyi.mjxgz.model.Goods;
 import com.zhiyi.mjxgz.service.AccountCouponService;
@@ -84,6 +85,15 @@ public class AccountCouponServiceImpl implements AccountCouponService {
 					throw new BizException("该券已领光了");
 				}
 				
+				//是否已领取过校验
+				AccountCouponExample example = new AccountCouponExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andAccountIdEqualTo(accountId);
+				criteria.andCouponIdEqualTo(Integer.valueOf(couponId+""));
+			    int recordSize = accountCouponMapperExt.countByExample(example);
+				if(recordSize > 0){
+					throw new BizException("您已经领取过了");
+				}
 				//更新商品库存量
 				Goods newGoods = new Goods();
 				newGoods.setId(goods.getId());
