@@ -42,7 +42,9 @@
 		<include refid="goodsBase"></include>
 		,b.`name` as businessName,
 		b.`special_remind` AS specialRemind,
-		b.`welfare_content` AS welfareContent
+		b.`welfare_content` AS welfareContent,
+		b.business_introduction AS businessIntroduction,
+		b.logo
 		from goods g  
 		left join `business` b on b.`id` = g.`business_id`
 		where g.status = 1

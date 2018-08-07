@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zhiyi.mjxgz.common.exception.BizException;
 import com.zhiyi.mjxgz.common.exception.DataNotExistsException;
@@ -27,6 +28,7 @@ import com.zhiyi.mjxgz.model.AccountVipRecord;
 import com.zhiyi.mjxgz.model.VipMeal;
 import com.zhiyi.mjxgz.model.VipOrder;
 import com.zhiyi.mjxgz.model.VipOrderExample;
+import com.zhiyi.mjxgz.service.AccountService;
 import com.zhiyi.mjxgz.service.VipOrderService;
 import com.zhiyi.mjxgz.util.DateUtil;
 import com.zhiyi.mjxgz.util.HttpRequest;
@@ -51,7 +53,8 @@ public class VipOrderServiceImpl implements VipOrderService {
     private AccountMapperExt accountMapperExt;
     @Autowired
     private AccountVipRecordMapperExt accountVipRecordMapperExt;
-    
+    @Autowired
+    private AccountService accountService;
     @Value("${app_id}")
     private String app_id;
     @Value("${mch_id}")
@@ -138,6 +141,7 @@ public class VipOrderServiceImpl implements VipOrderService {
 
 
 	@Override
+	@Transactional
 	public void handlePayResult(SortedMap<Object, Object> packageParams) {
 		//订单是否重复处理
 		VipOrder vipOrder = vipOrderMapperExt.selectByPrimaryKey((String)packageParams.get("out_trade_no"));
@@ -180,6 +184,8 @@ public class VipOrderServiceImpl implements VipOrderService {
 			vipOrder.setPayAmount(totalFee);
 		}
 		vipOrderMapperExt.updateByPrimaryKeySelective(vipOrder);
+		
+		accountService.updateAccountTimeCache(vipOrder.getAccountId());
 	}
 	
 }

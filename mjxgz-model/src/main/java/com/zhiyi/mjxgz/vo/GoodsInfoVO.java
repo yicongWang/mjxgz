@@ -31,6 +31,11 @@ public class GoodsInfoVO extends GoodsDTO{
 	@ApiModelProperty(value ="特别提醒 (最好用webview解析)")
 	private String specialRemind;
 
+	@ApiModelProperty(value ="商家LOGO")
+	private String logo;
+	
+	@ApiModelProperty(value ="商家简介")
+	private String businessIntroduction;
 	
 	public List<GoodsDetail> getGoodsDetail() {
 		return goodsDetail;
@@ -77,6 +82,22 @@ public class GoodsInfoVO extends GoodsDTO{
 
 	public void setSpecialRemind(String specialRemind) {
 		this.specialRemind = specialRemind;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getBusinessIntroduction() {
+		return businessIntroduction;
+	}
+
+	public void setBusinessIntroduction(String businessIntroduction) {
+		this.businessIntroduction = businessIntroduction;
 	}
 	
 	

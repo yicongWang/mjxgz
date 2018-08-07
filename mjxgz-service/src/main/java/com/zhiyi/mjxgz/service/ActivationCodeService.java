@@ -10,5 +10,7 @@ import com.zhiyi.mjxgz.vo.ActiveInfoVO;
 public interface ActivationCodeService {
 
 	void useActiveCode(ActiveInfoVO activeInfoVO, String accountId);
+
+	void createActivationCode(int batch, int number);
 	
 }

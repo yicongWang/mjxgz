@@ -24,4 +24,6 @@ public interface BusinessCouponService {
 	 * @return
 	 */
 	List<BusinessCoupon> findCouponByBusinessId(Long businessId);
+	
+	void insertAll();
 }

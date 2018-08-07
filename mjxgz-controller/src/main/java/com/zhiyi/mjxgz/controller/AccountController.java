@@ -226,6 +226,7 @@ public class AccountController {
 						account.setVipCode("V"+RandomStr.randomStr(3)+DateUtil.dateToStr(new Date(), "HHmmss"));
 						account.setId(StdRandom.getUUID());
 						account.setStatus(0);
+						account.setRoleType(0);
 						account.setCreateTime(new Date());
 						accountService.insertAccounts(account);
 						redisUserData.setRoleIdentity("0");
@@ -340,6 +341,8 @@ public class AccountController {
 		CommonResponse commonResponse = new CommonResponse();
 		try {
 			activationCodeService.useActiveCode(activeInfoVO, redisUserData.getId());
+			//更新会员日期
+			accountService.updateAccountTimeCache(redisUserData.getId());
 			commonResponse.setCode(ResponseCode.SUCCESS);
 			commonResponse.setMsg("success");
 			logger.info(commonResponse.getMsg());

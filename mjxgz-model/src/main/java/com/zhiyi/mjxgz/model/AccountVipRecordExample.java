@@ -645,6 +645,66 @@ public class AccountVipRecordExample {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
+
+        public Criteria andBatchIsNull() {
+            addCriterion("batch is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchIsNotNull() {
+            addCriterion("batch is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchEqualTo(Integer value) {
+            addCriterion("batch =", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchNotEqualTo(Integer value) {
+            addCriterion("batch <>", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchGreaterThan(Integer value) {
+            addCriterion("batch >", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchGreaterThanOrEqualTo(Integer value) {
+            addCriterion("batch >=", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchLessThan(Integer value) {
+            addCriterion("batch <", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchLessThanOrEqualTo(Integer value) {
+            addCriterion("batch <=", value, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchIn(List<Integer> values) {
+            addCriterion("batch in", values, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchNotIn(List<Integer> values) {
+            addCriterion("batch not in", values, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchBetween(Integer value1, Integer value2) {
+            addCriterion("batch between", value1, value2, "batch");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatchNotBetween(Integer value1, Integer value2) {
+            addCriterion("batch not between", value1, value2, "batch");
+            return (Criteria) this;
+        }
     }
 
     /**

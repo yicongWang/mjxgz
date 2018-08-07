@@ -17,4 +17,6 @@ public interface AccountService {
 	 void insertAccounts(Account account);
 
 	 void updateAccount(UserInfoVO userInfoVO,String openid);
+	 
+	 void updateAccountTimeCache(String accountId);
 }

@@ -78,5 +78,16 @@ public class AccountServiceImpl implements AccountService {
 			   logger.error("更新用户信息缓存异常："+e.getMessage(),e);
 		   }
 	}
+	@Override
+	public void updateAccountTimeCache(String accountId) {
+		Account account = accountMapperExt.selectByPrimaryKey(accountId);
+		if(null != account){
+			 String accessToken = (String) redisUtil.get(account.getOpenid());
+			  RedisUserData redisUserData = (RedisUserData) redisUtil.get(accessToken);
+			  redisUserData.setExpireTime(DateUtil.dateToStr(account.getExpireTime(), "yyyy-MM-dd HH:mm:ss"));
+			  Long invalid = Long.parseLong(userSettings.getSessionInvalid());//要小于30天session_key
+			  redisUtil.set(accessToken, redisUserData, invalid);
+		}
+	}
 	
 }
