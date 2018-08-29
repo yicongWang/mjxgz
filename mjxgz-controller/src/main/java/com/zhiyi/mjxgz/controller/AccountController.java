@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -74,7 +75,10 @@ public class AccountController {
 	private RedisUtil redisUtil;
 	@Autowired
 	private JwtHelper jwtHelper;
-
+    @Value("${app_id}")
+    private String app_id;  // 账号信息 
+    @Value("${app_secret}")
+    private String app_secret;  // 账号信息
 	@Autowired
 	private AccountCouponService accountCouponService;
 
@@ -160,14 +164,14 @@ public class AccountController {
 			HttpServletRequest request, HttpServletResponse response, Device device) throws Exception {
 		CommonResponse commonResponse = new CommonResponse(ResponseCode.SOURCE_NOT_EXIST_ERROR, "授权失败！");
 		logger.info("Start getSessionKey");
-		String appId = "wxd42ab7a49b945f43";
-		String appSecret = "cbd13f4f4cb4f63e041a7ccc423f84ed";
+		//String appId = "wxd42ab7a49b945f43";
+		//String appSecret = "cbd13f4f4cb4f63e041a7ccc423f84ed";
 		String url = "https://api.weixin.qq.com/sns/jscode2session";
 		// String httpUrl = url + "?appid=" + appId + "&secret=" + appSecret +
 		// "&js_code=" + jsCode
 		// + "&grant_type=authorization_code";
 		try {
-			String ret = HttpRequest.sendGet(url, "appid=" + appId + "&secret=" + appSecret + "&js_code=" + jsCode
+			String ret = HttpRequest.sendGet(url, "appid=" + app_id + "&secret=" + app_secret + "&js_code=" + jsCode
 					+ "&grant_type=authorization_code");
 			// String ret = HttpRequest.sendGetRequest(httpUrl);
 			logger.info("微信返回的结果 {}", ret);
@@ -424,4 +428,24 @@ public class AccountController {
 		return loginLogService.add(loginLog) > 0 ? true : false;
 	}
 
+	
+	@ApiOperation(value = "获取AccessToken")
+	@RequestMapping(value = "/getAccessToken", method = RequestMethod.GET)
+	public CommonResponse getAccessToken() {
+		CommonResponse commonResponse = new CommonResponse();
+		try {
+			commonResponse.setData(redisUtil.get("wx_access_token"));
+			logger.info(commonResponse.getMsg());
+		} catch (BizException e1) {
+            commonResponse.setCode(ResponseCode.PARAMETER_ERROR);
+            commonResponse.setMsg(e1.getMessage());
+            logger.error("----takeCoupon---error:"+e1.getMessage(),e1);
+        }catch (Exception e) {
+			logger.error("getAccessToken failed", e);
+			commonResponse.setCode(ResponseCode.SERVER_ERROR);
+			commonResponse.setMsg("service error");
+		}
+		return commonResponse;
+	}
+	
 }

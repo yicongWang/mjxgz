@@ -2,12 +2,16 @@ package com.zhiyi.mjxgz.controller.common;
 
 
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.zhiyi.mjxgz.common.response.ResponseCode;
 import com.zhiyi.mjxgz.dto.RedisUserData;
+import com.zhiyi.mjxgz.util.NetworkUtil;
 import com.zhiyi.mjxgz.util.RedisUtil;
 
 /**
@@ -36,7 +41,8 @@ public class AccessApiInterceptor extends HandlerInterceptorAdapter {
     private long keytimeout;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+    	//打印请求信息
+    	printRequestLogs(request);
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Class<?> tClass = handlerMethod.getBeanType();
         AccessRequired annotation = tClass.getAnnotation(AccessRequired.class);
@@ -122,5 +128,26 @@ public class AccessApiInterceptor extends HandlerInterceptorAdapter {
         return false;*/
     }
 
+    /**
+     * 打印请求信息
+     * @param request
+     * @throws IOException 
+     */
+    private void printRequestLogs(HttpServletRequest request) throws IOException{
+    	Map<String, String[]> params = request.getParameterMap();  
+	    String queryString = "";  
+	    for (Entry entry : params.entrySet()) {
+	        String[] values =(String[]) entry.getValue();
+		     for (int i = 0; i < values.length; i++) {  
+		            String value = values[i];  
+		            queryString += entry.getKey() + "=" + value + "&";  
+		      }   
+	    }
+	    // 去掉最后一个&
+	    if(StringUtils.isNotBlank(queryString)){
+	    	queryString = queryString.substring(0, queryString.length() - 1);
+	    }
+	    logger.info("当前请求编号:" +Thread.currentThread().getId()+"; 请求URL:" + request.getRequestURL() +"; 请求类型:" + request.getMethod() +"; 客户端IP地址:" +NetworkUtil.getIpAddress(request) + "; 参数:" + queryString);
+    }
 
 }
